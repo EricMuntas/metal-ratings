@@ -11,18 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bands', function (Blueprint $table) {
+        Schema::create('releases', function (Blueprint $table) {
             $table->id();
+            $table->json('band_id');
             $table->string('name');
-
-            // ID por json
-            $table->json('genres_id'); 
-
-            // ID referenciado
-            // $table->foreignId('genre_id')->constrained('genre');
-            $table->integer('formed_year');
+            $table->float('rating')->nullable();
+            $table->enum('type', ['LP', 'EP', 'Single', 'Split', 'Compilation', 'Demo']);
             $table->timestamps();
-
         });
     }
 
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bands');
+        Schema::dropIfExists('release');
     }
 };
