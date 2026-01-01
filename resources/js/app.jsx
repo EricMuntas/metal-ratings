@@ -1,11 +1,6 @@
 import './bootstrap';
 import { createInertiaApp } from '@inertiajs/react';
 import { createRoot } from 'react-dom/client';
-import { Ziggy } from './ziggy';
-import { route as ziggyRoute } from 'ziggy-js';
-
-// Make it globally available
-window.route = (name, params, absolute) => ziggyRoute(name, params, absolute, Ziggy);
 
 createInertiaApp({
     resolve: name => {
@@ -13,6 +8,10 @@ createInertiaApp({
         return pages[`./Pages/${name}.jsx`];
     },
     setup({ el, App, props }) {
+        // Make Ziggy route helper globally available with config from props
+        const { ziggy } = props.initialPage.props;
+        window.Ziggy = ziggy;
+
         createRoot(el).render(<App {...props} />);
     },
 });

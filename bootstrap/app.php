@@ -12,8 +12,13 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [
-        \App\Http\Middleware\HandleInertiaRequests::class,
-    ]);
+            \App\Http\Middleware\HandleInertiaRequests::class,
+        ]);
+        
+        // Enable CORS for all routes
+        $middleware->use([
+            \Illuminate\Http\Middleware\HandleCors::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

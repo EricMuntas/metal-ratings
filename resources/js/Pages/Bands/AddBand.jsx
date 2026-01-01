@@ -1,5 +1,6 @@
 import AppLayout from "../../Layouts/AppLayout";
 import { useForm } from '@inertiajs/react';
+import { route } from 'ziggy-js';
 
 export default function AddBand({ genres }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -20,9 +21,9 @@ export default function AddBand({ genres }) {
 
                 <div>
                     <label htmlFor="bandName">Band Name:</label>
-                    <input 
-                        type="text" 
-                        placeholder="Metallica" 
+                    <input
+                        type="text"
+                        placeholder="Metallica"
                         name="name"
                         value={data.name}
                         onChange={e => setData('name', e.target.value)}
@@ -32,8 +33,8 @@ export default function AddBand({ genres }) {
 
                 <div>
                     <label htmlFor="yearFormed">Year Formed:</label>
-                    <input 
-                        type="number" 
+                    <input
+                        type="number"
                         placeholder="1981"
                         name="formed_year"
                         value={data.formed_year}
