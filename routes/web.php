@@ -20,10 +20,13 @@ Route::get('/test', function () {
 });
 
 Route::get('/bands', [BandController::class, 'index'])->name('bands.index');
-Route::get('/bands/{id}', [BandController::class, 'show']);
+Route::get('/bands/{id}', [BandController::class, 'show'])->name('bands.show');
 Route::get('/add-band', [BandController::class, 'showAddBandForm']);
-Route::post('/add-band', [BandController::class, 'create'])->name('bands.store');;
+Route::post('/add-band', [BandController::class, 'createBand'])->name('bands.storeBand');
 
+
+Route::get('/bands/{id}/add-release', [BandController::class, 'showAddReleaseForm']);
+Route::post('/bands/{id}/add-release', [BandController::class, 'createRelease'])->name('bands.storeRelease');
 // Route::get('/', function () {
 //     return view('welcome');
 // });

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('releases', function (Blueprint $table) {
             $table->id();
-            $table->json('band_id');
+            // $table->json('band_id')->nullable();
             $table->string('name');
             $table->float('rating')->nullable();
+            $table->date('release_date')->nullable();
             $table->enum('type', ['LP', 'EP', 'Single', 'Split', 'Compilation', 'Demo']);
             $table->timestamps();
         });

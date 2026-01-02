@@ -39,17 +39,22 @@ class DatabaseSeeder extends Seeder
             'formed_year' => 1969,
         ]);
 
-        Release::create([
-            'band_id' => json_encode([1]),
+        $album1 = Release::create([
+            // 'band_id' => json_encode([1]),
             'name' => "Black Sabbath",
             'type' => "LP",
         ]);
 
-        Release::create([
-            'band_id' => json_encode([1]),
+        $album1->bands()->attach([1]);
+
+        $album2 = Release::create([
+            // 'band_id' => json_encode([1]),
             'name' => "Paranoid",
             'type' => "LP",
         ]);
+
+        $album2->bands()->attach([1]);
+
 
         User::factory()->create([
             'name' => 'Test User',

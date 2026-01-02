@@ -12,7 +12,13 @@ class Band extends Model
 
     protected $fillable = [
         'name',
-        'genre',
+        'genres_id',
         'formed_year',
     ];
+
+    public function releases()
+    {
+        return $this->belongsToMany(Release::class);
+    }
+
 }

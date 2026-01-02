@@ -3,6 +3,7 @@ import { useForm } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 
 export default function AddBand({ genres }) {
+
     const { data, setData, post, processing, errors } = useForm({
         name: '',
         formed_year: '',
@@ -11,7 +12,17 @@ export default function AddBand({ genres }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('bands.store')); // or your route name
+        post(route('bands.storeBand'));
+    };
+
+    const handleGenreChange = (e) => {
+        const genreId = parseInt(e.target.value);
+        
+        if (data.genres_id.includes(genreId)) {
+            setData('genres_id', data.genres_id.filter(id => id !== genreId));
+        } else {
+            setData('genres_id', [...data.genres_id, genreId]);
+        }
     };
 
     return (
@@ -41,6 +52,31 @@ export default function AddBand({ genres }) {
                         onChange={e => setData('formed_year', e.target.value)}
                     />
                     {errors.formed_year && <span className="error">{errors.formed_year}</span>}
+                </div>
+
+                <div>
+                    <label>Genres:</label>
+                    <div>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="1"
+                                checked={data.genres_id.includes(1)}
+                                onChange={handleGenreChange}
+                            />
+                            Genre 1
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="2"
+                                checked={data.genres_id.includes(2)}
+                                onChange={handleGenreChange}
+                            />
+                            Genre 2
+                        </label>
+                    </div>
+                    {errors.genres_id && <span className="error">{errors.genres_id}</span>}
                 </div>
 
                 <button type="submit" disabled={processing}>
