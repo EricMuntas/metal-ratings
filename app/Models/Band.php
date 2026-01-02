@@ -14,6 +14,8 @@ class Band extends Model
         'name',
         'genres_id',
         'formed_year',
+        'country',
+        'rating',
     ];
 
     public function releases()

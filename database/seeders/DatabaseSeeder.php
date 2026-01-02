@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         //     BandSeeder::class,
         // ]);
 
+        $faker = \Faker\Factory::create();
+
         Genre::create([
             'name' => "Heavy Metal"
         ]);
@@ -37,20 +39,26 @@ class DatabaseSeeder extends Seeder
             'name' => "Black Sabbath",
             'genres_id' => json_encode([1, 2]),
             'formed_year' => 1969,
+            'country' => 'United Kingdom',
+            'rating' => 10,
         ]);
 
         $album1 = Release::create([
             // 'band_id' => json_encode([1]),
             'name' => "Black Sabbath",
             'type' => "LP",
+            'release_date' => $faker->date,
         ]);
 
+
+        
         $album1->bands()->attach([1]);
 
         $album2 = Release::create([
             // 'band_id' => json_encode([1]),
             'name' => "Paranoid",
             'type' => "LP",
+            'release_date' => $faker->date,
         ]);
 
         $album2->bands()->attach([1]);

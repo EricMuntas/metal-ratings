@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('band_id');
 
-            $table->string('name');
+            $table->string('title');
             $table->timestamp('duration');
             $table->text('lyrics');
 

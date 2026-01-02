@@ -1,14 +1,21 @@
 import AppLayout from "../../Layouts/AppLayout";
 import { useForm } from '@inertiajs/react';
+import { useState } from "react";
 import { route } from 'ziggy-js';
 
 export default function AddBand({ genres }) {
+
+    console.log(genres)
 
     const { data, setData, post, processing, errors } = useForm({
         name: '',
         formed_year: '',
         genres_id: [],
+        country: 'Unknown',
+        rating: null,
     });
+
+    const [genresArray, setGenres] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,13 +24,18 @@ export default function AddBand({ genres }) {
 
     const handleGenreChange = (e) => {
         const genreId = parseInt(e.target.value);
-        
+
         if (data.genres_id.includes(genreId)) {
             setData('genres_id', data.genres_id.filter(id => id !== genreId));
         } else {
             setData('genres_id', [...data.genres_id, genreId]);
         }
     };
+
+    function addGenreContainer() {
+        setGenres([...genresArray, { genre_id: '' }]);
+    }
+
 
     return (
         <AppLayout title="Add Band">
@@ -55,29 +67,44 @@ export default function AddBand({ genres }) {
                 </div>
 
                 <div>
-                    <label>Genres:</label>
-                    <div>
-                        <label>
-                            <input
-                                type="checkbox"
-                                value="1"
-                                checked={data.genres_id.includes(1)}
-                                onChange={handleGenreChange}
-                            />
-                            Genre 1
-                        </label>
-                        <label>
-                            <input
-                                type="checkbox"
-                                value="2"
-                                checked={data.genres_id.includes(2)}
-                                onChange={handleGenreChange}
-                            />
-                            Genre 2
-                        </label>
-                    </div>
+                    <label htmlFor="maingenre">Genres:</label>
+                    <select name="maingenre" onChange={handleGenreChange}>
+                        <option value="0">Select a genre...</option>
+                        {
+                            genres.map((genre, index) => (
+                                <option value={genre.id} key={genre.id}>{genre.name}</option>
+                            ))
+                        }
+
+                    </select>
                     {errors.genres_id && <span className="error">{errors.genres_id}</span>}
                 </div>
+                <div>
+                    <button type="button" onClick={addGenreContainer}>Add more genre</button>
+                </div>
+
+                {
+                    genresArray.map((newGenre, index) => (
+
+                        <div key={index} >
+                            <label htmlFor={"newGenre"+1}>Genres:</label>
+                            <select name="maingenre" onChange={handleGenreChange}>
+                                <option value="0">Select a genre...</option>
+                                {
+                                    genres.map((genre, index) => (
+                                        <option value={genre.id} key={genre.id}>{genre.name}</option>
+                                    ))
+                                }
+
+                            </select>
+                            {errors.genres_id && <span className="error">{errors.genres_id}</span>}
+                        </div>
+
+                    ))
+                }
+
+
+
 
                 <button type="submit" disabled={processing}>
                     {processing ? 'Submitting...' : 'Submit'}

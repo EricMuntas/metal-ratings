@@ -13,6 +13,10 @@ export default function Navbar() {
                 <li>
                    <Link href={'/add-band'}>ADD BAND</Link>
                 </li>
+
+                 <li>
+                   <Link href={'/add-genre'}>ADD GENRE</Link>
+                </li>
             </ul>
         </nav>
     );

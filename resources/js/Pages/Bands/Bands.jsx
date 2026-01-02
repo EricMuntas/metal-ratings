@@ -1,17 +1,12 @@
 import { Link } from "@inertiajs/react";
 import AppLayout from "../../Layouts/AppLayout";
+import BandsTable from "../../Components/BandsTable";
 
-export default function Bands({ bands }) {
+export default function Bands({ bands, genres }) {
     return (
         <AppLayout title="Bands">
             <h1>Bandas</h1>
-            <ul>
-                {bands.map((band) => (
-                    <li key={band.id}>
-                        <Link href={"/bands/"+band.id}>{band.name} - Genre ID: {band.genre} - Year: {band.formed_year}</Link>
-                    </li>
-                ))}
-            </ul>
+            <BandsTable bands={bands} genres={genres}/>
         </AppLayout>
     );
 }

@@ -16,11 +16,14 @@ return new class extends Migration
             $table->string('name');
 
             // ID por json
-            $table->json('genres_id'); 
+            $table->json('genres_id')->nullable(); 
 
             // ID referenciado
             // $table->foreignId('genre_id')->constrained('genre');
-            $table->integer('formed_year');
+            $table->integer('formed_year')->nullable();
+            $table->string('country')->nullable();
+            $table->float('rating')->nullable();
+
             $table->timestamps();
 
         });

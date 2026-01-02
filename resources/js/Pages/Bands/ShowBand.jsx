@@ -1,9 +1,8 @@
+import ReleasesTable from "../../Components/ReleasesTable";
 import AppLayout from "../../Layouts/AppLayout";
 
 export default function BandProfile({band, releases}) {
 
-
-    // console.log(band);
     console.log(releases);
 
     return (
@@ -19,7 +18,10 @@ export default function BandProfile({band, releases}) {
             </h1>
         ))}
 
-            <a href={'/bands/'+band.id+'/add-release'} className="text-blue-500 underline">Add release</a>
+            <a href={'/bands/'+band.id+'/add-release'} className="link">Add release</a>
+
+        <ReleasesTable releases={releases} />
+
         </AppLayout>
     );
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Band;
+use App\Models\Genre;
 use App\Models\Release;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -16,9 +17,11 @@ class BandController extends Controller
     {
 
         $all_bands = Band::all();
+        $genres = Genre::all();
 
         return Inertia::render("Bands/Bands", ([
             'bands' => $all_bands,
+            'genres' => $genres,
         ]));
     }
 
@@ -38,7 +41,7 @@ class BandController extends Controller
     public function showAddBandForm(Request $request)
     {
         return Inertia::render("Bands/AddBand", ([
-            'genres' => \App\Models\Genre::all()
+            'genres' => Genre::all()
         ]));
     }
 
@@ -98,12 +101,18 @@ class BandController extends Controller
             'name' => 'required|string|max:255',
             'formed_year' => 'required|integer|min:1900|max:' . date('Y'),
             'genres_id' => 'required|array',
+            // 'country' => 'nullable|string|max:255',
+            // 'rating' => 'nullable|numeric|min:0|max:10',
         ]);
 
         $band = Band::create([
             'name' => $validated['name'],
             'formed_year' => $validated['formed_year'],
             'genres_id' => json_encode($validated['genres_id']),
+            // 'country' => $validated['country'] ?? 'Unknown',
+            // 'rating' => $validated['rating'] ?? 2,
+            'country' => 'Unknown',
+            'rating' => 2,
         ]);
 
         return redirect()->route('bands.index')

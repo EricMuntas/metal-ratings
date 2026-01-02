@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BandController;
+use App\Http\Controllers\GenreController;
 use App\Models\Band;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,9 @@ Route::post('/add-band', [BandController::class, 'createBand'])->name('bands.sto
 
 Route::get('/bands/{id}/add-release', [BandController::class, 'showAddReleaseForm']);
 Route::post('/bands/{id}/add-release', [BandController::class, 'createRelease'])->name('bands.storeRelease');
+
+Route::get('/add-genre', [GenreController::class, 'showAddGenreForm'])->name('genre.showAddGenreForm');
+Route::post('/add-genre', [GenreController::class, 'store'])->name('genre.store');
 // Route::get('/', function () {
 //     return view('welcome');
 // });
