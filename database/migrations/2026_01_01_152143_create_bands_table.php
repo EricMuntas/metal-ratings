@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
 
             // ID por json
-            $table->json('genres_id')->nullable(); 
+            // $table->json('genres_id')->nullable(); 
 
             // ID referenciado
             // $table->foreignId('genre_id')->constrained('genre');

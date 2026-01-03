@@ -23,4 +23,14 @@ class Band extends Model
         return $this->belongsToMany(Release::class);
     }
 
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
+    }
+
+      public function songs()
+    {
+        return $this->belongsToMany(Song::class);
+    }
+
 }

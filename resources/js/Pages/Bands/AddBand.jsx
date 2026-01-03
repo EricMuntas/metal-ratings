@@ -11,7 +11,7 @@ export default function AddBand({ genres }) {
         name: '',
         formed_year: '',
         genres_id: [],
-        country: 'Unknown',
+        country: '',
         rating: null,
     });
 
@@ -67,6 +67,18 @@ export default function AddBand({ genres }) {
                 </div>
 
                 <div>
+                    <label htmlFor="country">Country:</label>
+                    <input
+                        type="text"
+                        placeholder="US"
+                        name="country"
+                        value={data.country}
+                        onChange={e => setData('country', e.target.value)}
+                    />
+                    {errors.formed_year && <span className="error">{errors.formed_year}</span>}
+                </div>
+
+                <div>
                     <label htmlFor="maingenre">Genres:</label>
                     <select name="maingenre" onChange={handleGenreChange}>
                         <option value="0">Select a genre...</option>
@@ -87,7 +99,7 @@ export default function AddBand({ genres }) {
                     genresArray.map((newGenre, index) => (
 
                         <div key={index} >
-                            <label htmlFor={"newGenre"+1}>Genres:</label>
+                            <label htmlFor={"newGenre" + 1}>Genre {index + 2 }:</label>
                             <select name="maingenre" onChange={handleGenreChange}>
                                 <option value="0">Select a genre...</option>
                                 {

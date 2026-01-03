@@ -12,4 +12,9 @@ class Genre extends Model
     protected $fillable = ([
         'name',
     ]);
+
+       public function bands()
+    {
+        return $this->belongsToMany(Band::class);
+    }
 }

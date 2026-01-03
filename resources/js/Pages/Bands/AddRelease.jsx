@@ -1,7 +1,7 @@
 import { useForm } from "@inertiajs/react";
 import AppLayout from "../../Layouts/AppLayout";
 import { route } from 'ziggy-js';
-import { useState } from "react";
+
 
 export default function AddRelease({ band, release_types }) {
 
@@ -12,28 +12,26 @@ export default function AddRelease({ band, release_types }) {
         songs: [],
     });
 
-    const [songs, setSongs] = useState([]);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Update the form data with songs before submitting
-        setData('songs', songs);
-        post(route('bands.storeRelease', band.id));
-    };
 
+        post(route('release.storeRelease', band.id));
+    };
     function handleTypeChange(e) {
         const type = e.target.value;
         setData('type', type);
     }
 
     function addSongContainer() {
-        setSongs([...songs, { title: '', duration: '', lyrics: '' }]);
+        setData('songs', [...data.songs, { title: '', duration: '', lyrics: '' }]);
     }
 
     function updateSong(index, field, value) {
-        const updatedSongs = [...songs];
+        const updatedSongs = [...data.songs];
         updatedSongs[index][field] = value;
-        setSongs(updatedSongs);
+        setData('songs', updatedSongs);
     }
 
     return (
@@ -68,7 +66,7 @@ export default function AddRelease({ band, release_types }) {
                     <button type="button" onClick={addSongContainer}>Add song</button>
                 </div>
 
-                {songs.map((song, index) => (
+                {data.songs.map((song, index) => (
                     <div key={index} id="addSong">
                         <h3>Song {index + 1}:</h3>
                         <div>

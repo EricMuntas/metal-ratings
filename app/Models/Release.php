@@ -13,6 +13,7 @@ class Release extends Model
         'band_id',
         'name',
         'type',
+        'release_date',
     ]);
 
     public const RELEASE_TYPES = [
@@ -30,6 +31,11 @@ class Release extends Model
     public function bands()
     {
         return $this->belongsToMany(Band::class);
+    }
+
+    public function songs()
+    {
+        return $this->belongsToMany(Song::class);
     }
 
 }

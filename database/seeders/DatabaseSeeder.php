@@ -35,9 +35,8 @@ class DatabaseSeeder extends Seeder
             'name' => "Doom Metal"
         ]);
 
-        Band::create([
+        $band = Band::create([
             'name' => "Black Sabbath",
-            'genres_id' => json_encode([1, 2]),
             'formed_year' => 1969,
             'country' => 'United Kingdom',
             'rating' => 10,
@@ -50,7 +49,7 @@ class DatabaseSeeder extends Seeder
             'release_date' => $faker->date,
         ]);
 
-
+        $band->genres()->attach([1, 2]);
         
         $album1->bands()->attach([1]);
 

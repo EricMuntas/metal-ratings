@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BandController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\ReleaseController;
 use App\Models\Band;
 use Illuminate\Support\Facades\Route;
 
@@ -26,8 +27,8 @@ Route::get('/add-band', [BandController::class, 'showAddBandForm']);
 Route::post('/add-band', [BandController::class, 'createBand'])->name('bands.storeBand');
 
 
-Route::get('/bands/{id}/add-release', [BandController::class, 'showAddReleaseForm']);
-Route::post('/bands/{id}/add-release', [BandController::class, 'createRelease'])->name('bands.storeRelease');
+Route::get('/bands/{id}/add-release', [ReleaseController::class, 'showAddReleaseForm']);
+Route::post('/bands/{id}/add-release', [ReleaseController::class, 'createRelease'])->name('release.storeRelease');
 
 Route::get('/add-genre', [GenreController::class, 'showAddGenreForm'])->name('genre.showAddGenreForm');
 Route::post('/add-genre', [GenreController::class, 'store'])->name('genre.store');
