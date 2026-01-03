@@ -20,7 +20,7 @@ export default function BandProfile({band, releases}) {
 
             <a href={'/bands/'+band.id+'/add-release'} className="link">Add release</a>
 
-        <ReleasesTable releases={releases} />
+        <ReleasesTable releases={releases} band_id={band.id}/>
 
         </AppLayout>
     );

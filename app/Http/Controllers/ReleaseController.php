@@ -11,6 +11,19 @@ use Inertia\Inertia;
 
 class ReleaseController extends Controller
 {
+
+    public function showRelease($band, $release, Request $request)
+    {
+
+        // release -> obtén la release y adjunta los datos de la banda -> busca el release por ID
+        $release = Release::with(['bands', 'songs'])->find($release);
+
+        return Inertia::render("Bands/ShowRelease", ([
+            // 'band' => $band,
+            'release' => $release,
+        ]));
+    }
+
     public function showAddReleaseForm($id, Request $request)
     {
 
@@ -39,7 +52,7 @@ class ReleaseController extends Controller
             'name' => 'required|string|max:255',
             'release_date' => 'required',
             'type' => ['required', Rule::in(Release::RELEASE_TYPES)],
-            'songs' => 'array',
+            'songs' => 'array|required',
             'songs.*.title' => 'required|string|max:255',
             'songs.*.duration' => 'required|string',
             'songs.*.lyrics' => 'nullable|string',
@@ -50,6 +63,8 @@ class ReleaseController extends Controller
             // 'band_id' => json_encode($validated['band_id']),
             'release_date' => $validated['release_date'],
             'type' => $validated['type'],
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         $release->bands()->attach($id);
@@ -61,6 +76,8 @@ class ReleaseController extends Controller
                     'title' => $songData['title'],
                     'duration' => $songData['duration'],
                     'lyrics' => $songData['lyrics'] ?? '',
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
                 $song->bands()->attach($id);
                 $song->releases()->attach($release->id);

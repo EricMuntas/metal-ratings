@@ -63,6 +63,8 @@ class BandController extends Controller
             'formed_year' => $validated['formed_year'],
             'country' => $validated['country'] ?? 'Unknown',
             'rating' => null,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         // Adjuntar los géneros a la banda

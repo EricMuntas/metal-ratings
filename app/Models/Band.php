@@ -12,7 +12,7 @@ class Band extends Model
 
     protected $fillable = [
         'name',
-        'genres_id',
+        // 'genres_id',
         'formed_year',
         'country',
         'rating',
@@ -20,17 +20,17 @@ class Band extends Model
 
     public function releases()
     {
-        return $this->belongsToMany(Release::class);
+        return $this->belongsToMany(Release::class)->withTimestamps();
     }
 
     public function genres()
     {
-        return $this->belongsToMany(Genre::class);
+        return $this->belongsToMany(Genre::class)->withTimestamps();
     }
 
       public function songs()
     {
-        return $this->belongsToMany(Song::class);
+        return $this->belongsToMany(Song::class)->withTimestamps();
     }
 
 }

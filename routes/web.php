@@ -29,6 +29,8 @@ Route::post('/add-band', [BandController::class, 'createBand'])->name('bands.sto
 
 Route::get('/bands/{id}/add-release', [ReleaseController::class, 'showAddReleaseForm']);
 Route::post('/bands/{id}/add-release', [ReleaseController::class, 'createRelease'])->name('release.storeRelease');
+Route::get('/bands/{band}/{release}', [ReleaseController::class, 'showRelease'])->name('release.show');
+
 
 Route::get('/add-genre', [GenreController::class, 'showAddGenreForm'])->name('genre.showAddGenreForm');
 Route::post('/add-genre', [GenreController::class, 'store'])->name('genre.store');

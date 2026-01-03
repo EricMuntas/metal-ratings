@@ -1,5 +1,6 @@
-export default function ReleasesTable({ releases }) {
+import { Link } from "@inertiajs/react";
 
+export default function ReleasesTable({ releases, band_id }) {
 
     function getYear(release_date) {
         return release_date.split('-')[0];
@@ -21,7 +22,7 @@ export default function ReleasesTable({ releases }) {
                     releases.map((release, index) => (
                         <div className="grid grid-cols-8" key={release.id}>
                             <span className="col-span-4">
-                                {release.name}
+                              <Link className="link" href={/bands/ + band_id + '/' + release.id}>{release.name}</Link>  
                             </span>
                             <span className="col-span-2"> {release.type}</span>
                             <span className="col-span-1"> {getYear(release.release_date)}</span>

@@ -15,6 +15,6 @@ class Genre extends Model
 
        public function bands()
     {
-        return $this->belongsToMany(Band::class);
+        return $this->belongsToMany(Band::class)->withTimestamps();
     }
 }

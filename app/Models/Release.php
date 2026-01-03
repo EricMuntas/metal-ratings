@@ -10,7 +10,6 @@ class Release extends Model
     protected $table = "releases";
 
     protected $fillable = ([
-        'band_id',
         'name',
         'type',
         'release_date',
@@ -30,12 +29,12 @@ class Release extends Model
 
     public function bands()
     {
-        return $this->belongsToMany(Band::class);
+        return $this->belongsToMany(Band::class)->withTimestamps();
     }
 
     public function songs()
     {
-        return $this->belongsToMany(Song::class);
+        return $this->belongsToMany(Song::class)->withTimestamps();
     }
 
 }
