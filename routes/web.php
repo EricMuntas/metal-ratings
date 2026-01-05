@@ -3,6 +3,7 @@
 use App\Http\Controllers\BandController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ReleaseController;
+use App\Http\Controllers\ReviewController;
 use App\Models\Band;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,8 @@ Route::get('/bands/{band}/{release}', [ReleaseController::class, 'showRelease'])
 
 Route::get('/add-genre', [GenreController::class, 'showAddGenreForm'])->name('genre.showAddGenreForm');
 Route::post('/add-genre', [GenreController::class, 'store'])->name('genre.store');
+
+Route::post('/add-song-review', [ReviewController::class, 'storeSongReview'])->name('review.storeSongReview');
 // Route::get('/', function () {
 //     return view('welcome');
 // });
