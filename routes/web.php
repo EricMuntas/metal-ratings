@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BandController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ReleaseController;
@@ -40,3 +42,31 @@ Route::post('/add-song-review', [ReviewController::class, 'storeSongReview'])->n
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', function () {
+        return Inertia::render('Auth/Login');
+    })->name('login');
+    
+    Route::post('/login', [LoginController::class, 'store']);
+    
+    Route::get('/register', function () {
+        return Inertia::render('Auth/Register');
+    })->name('register');
+    
+    Route::post('/register', [RegisterController::class, 'store']);
+});
+
+// Rutas protegidas
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+    
+    Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+});
+
+// Ruta principal
+Route::get('/', function () {
+    return redirect()->route('dashboard');
+});

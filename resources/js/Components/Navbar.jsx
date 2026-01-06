@@ -1,6 +1,16 @@
 import { Link } from "@inertiajs/react";
+import { usePage, router } from '@inertiajs/react';
 
 export default function Navbar() {
+
+    const { auth } = usePage().props;
+
+    const handleLogout = () => {
+        router.post('/logout');
+    };
+
+
+
     return (
         <nav>
             <ul>
@@ -11,11 +21,17 @@ export default function Navbar() {
                     <Link href={'/bands'}>DISCOVER</Link>
                 </li>
                 <li>
-                   <Link href={'/add-band'}>ADD BAND</Link>
+                    <Link href={'/add-band'}>ADD BAND</Link>
                 </li>
 
-                 <li>
-                   <Link href={'/add-genre'}>ADD GENRE</Link>
+                <li>
+                    <Link href={'/add-genre'}>ADD GENRE</Link>
+                </li>
+                <li>
+                    <Link>{auth.user.name}</Link>
+                </li>
+                <li>
+                    <span onClick={handleLogout} className="cursor-pointer">Cerrar Sesión</span>
                 </li>
             </ul>
         </nav>
