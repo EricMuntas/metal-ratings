@@ -4,12 +4,28 @@ import SongsTable from "../../Components/SongsTable";
 import WriteReviewModal from "../../Components/WriteReviewModal";
 import AppLayout from "../../Layouts/AppLayout";
 
-export default function ShowRelease({ release }) {
+export default function ShowRelease({ release, myReviews }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedSong, setSelectedSong] = useState(null);
+    const [selectedSongReview, setSelectedSongReview] = useState(null);
 
     const openWriteReviewModal = (song) => {
+
+
         setSelectedSong(song);
+
+        if (myReviews) {
+            // Convertir a array si no lo es
+            const reviewsArray = Array.isArray(myReviews)
+                ? myReviews
+                : Object.values(myReviews);
+
+            const foundReview = reviewsArray.find(
+                (review) => review.song_id === song.id
+            );
+
+            setSelectedSongReview(foundReview || null);
+        }
         setIsModalOpen(true);
     };
 
@@ -28,15 +44,17 @@ export default function ShowRelease({ release }) {
 
             <a href={''} className="link">Edit release</a>
 
-            <SongsTable 
-                songs={release.songs} 
+            <SongsTable
+                songs={release.songs}
                 onWriteReview={openWriteReviewModal}
+                myReviews={myReviews}
             />
 
-            <WriteReviewModal 
-                isOpen={isModalOpen} 
+            <WriteReviewModal
+                isOpen={isModalOpen}
                 onClose={closeModal}
                 song={selectedSong}
+                review={selectedSongReview}
             />
         </AppLayout>
     );

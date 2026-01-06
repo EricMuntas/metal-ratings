@@ -2,26 +2,54 @@ import { useForm } from "@inertiajs/react";
 import { route } from "ziggy-js";
 import { useEffect } from "react";
 
-export default function WriteReviewModal({ isOpen, onClose, song }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        // user_id: '',
+export default function WriteReviewModal({ isOpen, onClose, song, review }) {
+
+    console.log(song)
+
+    const { data, setData, post, processing, errors, reset, delete: destroy, } = useForm({
         rating: null,
         review: '',
-        song_id: song?.id,
+        song_id: null,
     });
 
+    // Actualizar song_id cuando cambia la canción
     useEffect(() => {
         if (song) {
             setData('song_id', song.id);
         }
     }, [song]);
 
-    // Don't return early before hooks
+    // Prellenar el formulario si hay un review existente
+    useEffect(() => {
+        if (review) {
+            setData({
+                rating: review.rating,
+                review: review.review,
+                song_id: song?.id
+            });
+        } else {
+            setData({
+                rating: null,
+                review: '',
+                song_id: song?.id
+            });
+            // reset();
+        }
+    }, [review, song]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('hola');
-        console.log(data);
         post(route('review.storeSongReview'), {
+            onSuccess: () => {
+                reset();
+                onClose();
+            }
+        });
+    };
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        destroy(route('review.destroySongReview', review.id), {
             onSuccess: () => {
                 reset();
                 onClose();
@@ -34,7 +62,6 @@ export default function WriteReviewModal({ isOpen, onClose, song }) {
         setData('rating', rating);
     }
 
-    // Return early AFTER hooks
     if (!isOpen) return null;
 
     return (
@@ -47,7 +74,7 @@ export default function WriteReviewModal({ isOpen, onClose, song }) {
                 onClick={(e) => e.stopPropagation()}
             >
                 <h2 className="text-xl font-bold mb-4">
-                    Write Review for: {song?.title}
+                    {review ? 'Edit Review' : 'Write Review'} for: {song?.title}
                 </h2>
 
                 <form onSubmit={handleSubmit}>
@@ -83,21 +110,32 @@ export default function WriteReviewModal({ isOpen, onClose, song }) {
                         )}
                     </div>
 
-                    <div className="flex justify-end gap-2">
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
-                        >
-                            {processing ? 'Submitting...' : 'Submit'}
-                        </button>
+                    <div className="flex justify-between gap-2">
                         <button
                             type="button"
-                            onClick={onClose}
-                            className="bg-gray-300 px-4 py-2 rounded"
+                            disabled={processing}
+                            className="bg-red-500 text-white px-4 py-2 rounded disabled:opacity-50"
+                            onClick={handleDelete}
                         >
-                            Close
+                            {/* {processing ? 'Submitting...' : (review ? 'Update' : 'Submit')} */}
+                            Delete
                         </button>
+                        <div className="flex  gap-2">
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+                            >
+                                {processing ? 'Submitting...' : (review ? 'Update' : 'Submit')}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={onClose}
+                                className="bg-gray-300 px-4 py-2 rounded"
+                            >
+                                Close
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

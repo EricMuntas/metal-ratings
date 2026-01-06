@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('songreviews', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('song_id')->references('id')->on('songs');
             $table->float('rating');
             $table->text('review')->nullable();
             $table->timestamps();
+
+            $table->unique(['user_id', 'song_id']);
         });
     }
 

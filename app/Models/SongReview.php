@@ -9,7 +9,7 @@ class SongReview extends Model
     protected $table = 'songreviews';
 
     protected $fillable = [
-        // 'user_id',
+        'user_id',
         'rating',
         'review',
         'song_id',

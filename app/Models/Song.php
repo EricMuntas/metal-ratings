@@ -27,4 +27,15 @@ class Song extends Model
         return $this->belongsToMany(Band::class)->withTimestamps();
     }
 
+        public function reviews()
+    {
+        return $this->hasMany(SongReview::class);
+    }
+
+    public function updateRating(): void
+    {
+        $this->rating = $this->reviews()->avg('rating');
+        $this->save();
+    }
+
 }

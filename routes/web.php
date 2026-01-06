@@ -39,6 +39,7 @@ Route::get('/add-genre', [GenreController::class, 'showAddGenreForm'])->name('ge
 Route::post('/add-genre', [GenreController::class, 'store'])->name('genre.store');
 
 Route::post('/add-song-review', [ReviewController::class, 'storeSongReview'])->name('review.storeSongReview');
+Route::delete('/{id}/delete-song-review', [ReviewController::class, 'destroySongReview'])->name('review.destroySongReview');
 // Route::get('/', function () {
 //     return view('welcome');
 // });

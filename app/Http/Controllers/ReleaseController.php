@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Band;
 use App\Models\Release;
 use App\Models\Song;
+use App\Models\SongReview;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -16,11 +17,24 @@ class ReleaseController extends Controller
     {
 
         // release -> obtén la release y adjunta los datos de la banda -> busca el release por ID
-        $release = Release::with(['bands', 'songs'])->find($release);
+        $release = Release::with([
+            'bands',
+            'songs',
+        ])->find($release);
+
+        // Obtener las IDs de las canciones del release
+        $songIds = $release->songs->pluck('id');
+
+        // Obtener las reviews del usuario actual para esas canciones
+        $myReviews = SongReview::where('user_id', auth()->id())
+            ->whereIn('song_id', $songIds)
+            ->get()
+            ->keyBy('song_id');
 
         return Inertia::render("Bands/ShowRelease", ([
             // 'band' => $band,
             'release' => $release,
+            'myReviews' => $myReviews,
         ]));
     }
 

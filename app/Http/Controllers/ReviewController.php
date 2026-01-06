@@ -11,25 +11,31 @@ class ReviewController extends Controller
 {
     public function storeSongReview(Request $request) {
 
-        $validated = $request->validate([
-            'rating' => 'required|integer|min:0|max:10',
-            'review' => 'nullable|string|max:5000',
-            'song_id' => 'required|integer',
-        ]);
 
-        // $songToReview = Song::find($id);
+    $validated = $request->validate([
+        'rating' => 'required|integer|min:0|max:10',
+        'review' => 'nullable|string|max:5000',
+        'song_id' => 'required|integer',
+    ]);
 
-        $songReview = SongReview::create([
+    $songReview = SongReview::updateOrCreate(
+        [
+            'user_id' => Auth::id(),
+            'song_id' => $validated['song_id']
+        ],
+        [
             'rating' => $validated['rating'],
             'review' => $validated['review'] ?? null,
-            // 'user_id' => Auth::id(),
-            // 'user_id' => 1,
-            // 'user_id' => null,
-            'song_id' => $validated['song_id'],
-        ]);
+        ]
+    );
 
-           return redirect()->back()->with('success', 'Review created successfully');
-       
+    return redirect()->back()->with('success', 'Review saved successfully');
+}
 
-    }
+public function destroySongReview($id) {
+
+    $review = SongReview::destroy($id);
+
+    return redirect()->back()->with('success', 'Review deleted successfully');
+}
 }
