@@ -40,6 +40,9 @@ Route::post('/add-genre', [GenreController::class, 'store'])->name('genre.store'
 
 Route::post('/add-song-review', [ReviewController::class, 'storeSongReview'])->name('review.storeSongReview');
 Route::delete('/{id}/delete-song-review', [ReviewController::class, 'destroySongReview'])->name('review.destroySongReview');
+
+Route::post('/add-release-review', [ReviewController::class, 'storeReleaseReview'])->name('review.storeReleaseReview');
+Route::delete('/{id}/delete-release-review', [ReviewController::class, 'destroyReleaseReview'])->name('review.destroyReleaseReview');
 // Route::get('/', function () {
 //     return view('welcome');
 // });

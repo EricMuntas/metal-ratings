@@ -13,9 +13,12 @@ return new class extends Migration {
         Schema::create('releasereviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('release_id')->references('id')->on('releases');
             $table->float('rating');
             $table->text('review')->nullable();
             $table->timestamps();
+
+            $table->unique(['user_id', 'release_id']);
         });
     }
 

@@ -2,9 +2,7 @@ import { useForm } from "@inertiajs/react";
 import { route } from "ziggy-js";
 import { useEffect } from "react";
 
-export default function WriteReviewModal({ isOpen, onClose, song, review }) {
-
-    console.log(song)
+export default function WriteSongReviewModal({ isOpen, onClose, song, review }) {
 
     const { data, setData, post, processing, errors, reset, delete: destroy, } = useForm({
         rating: null,

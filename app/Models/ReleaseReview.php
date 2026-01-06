@@ -11,6 +11,7 @@ class ReleaseReview extends Model
     protected $fillable = [
         'user_id',
         'rating',
-        'review'
+        'review',
+        'release_id',
     ];
 }

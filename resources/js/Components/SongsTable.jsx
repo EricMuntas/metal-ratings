@@ -2,11 +2,6 @@ import { Link } from "@inertiajs/react";
 import { Star } from "lucide-react";
 
 export default function SongsTable({ songs, onWriteReview, myReviews }) {
-    console.log("----------")
-    console.log(songs);
-    console.log(myReviews);
-    console.log("----------")
-
 
     return (
         <>

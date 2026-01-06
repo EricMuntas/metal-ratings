@@ -5,8 +5,6 @@ import { route } from 'ziggy-js';
 
 export default function AddBand({ genres }) {
 
-    console.log(genres)
-
     const { data, setData, post, processing, errors } = useForm({
         name: '',
         formed_year: '',

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ReleasesTable from "../../Components/ReleasesTable";
 import SongsTable from "../../Components/SongsTable";
-import WriteReviewModal from "../../Components/WriteReviewModal";
+import WriteSongReviewModal from "../../Components/WriteSongReviewModal";
 import AppLayout from "../../Layouts/AppLayout";
 
 export default function ShowRelease({ release, myReviews }) {
@@ -50,7 +50,7 @@ export default function ShowRelease({ release, myReviews }) {
                 myReviews={myReviews}
             />
 
-            <WriteReviewModal
+            <WriteSongReviewModal
                 isOpen={isModalOpen}
                 onClose={closeModal}
                 song={selectedSong}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Band;
 use App\Models\Genre;
 use App\Models\Release;
+use App\Models\ReleaseReview;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
@@ -32,10 +33,18 @@ class BandController extends Controller
 
         $band_genres = Band::with('genres');
 
+        $releasesIds = $band->releases->pluck('id');
+
+        $myReviews = ReleaseReview::where('user_id', auth()->id())
+            ->whereIn('release_id', $releasesIds)
+            ->get()
+            ->keyBy('release_id');
+
         return Inertia::render('Bands/ShowBand', [
             'band' => $band,
             'releases' => $band->releases,
             'band_genres' => $band_genres,
+            'myReviews' => $myReviews,
         ]);
     }
 
