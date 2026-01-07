@@ -1,17 +1,36 @@
 import { useForm } from "@inertiajs/react";
 import AppLayout from "../../Layouts/AppLayout";
 import { route } from 'ziggy-js';
+import { useState } from "react";
 
 
-export default function AddRelease({ band, release_types }) {
+export default function AddRelease({ band, release_types, genres }) {
 
     const { data, setData, post, processing, errors } = useForm({
         name: '',
         release_date: '',
         type: 'LP',
         songs: [],
+        genres_id: [],
     });
 
+    
+    const [genresArray, setGenres] = useState([]);
+    console.log(genres);
+
+    const handleGenreChange = (e) => {
+        const genreId = parseInt(e.target.value);
+
+        if (data.genres_id.includes(genreId)) {
+            setData('genres_id', data.genres_id.filter(id => id !== genreId));
+        } else {
+            setData('genres_id', [...data.genres_id, genreId]);
+        }
+    };
+
+    function addGenreContainer() {
+        setGenres([...genresArray, { genre_id: '' }]);
+    }
 
 
     const handleSubmit = (e) => {
@@ -61,6 +80,47 @@ export default function AddRelease({ band, release_types }) {
                         ))}
                     </select>
                 </div>
+
+                <div>
+                    <label htmlFor="maingenre">Genres:</label>
+                    <select name="maingenre" onChange={handleGenreChange}>
+                        <option value="0">Select a genre...</option>
+                        {
+                            genres.map((genre, index) => (
+                                <option value={genre.id} key={genre.id}>{genre.name}</option>
+                            ))
+                        }
+
+                    </select>
+                    {errors.genres_id && <span className="error">{errors.genres_id}</span>}
+                </div>
+                <div>
+                    <button type="button" onClick={addGenreContainer}>Add more genre</button>
+                </div>
+
+                {
+                    genresArray.map((newGenre, index) => (
+
+                        <div key={index} >
+                            <label htmlFor={"newGenre" + 1}>Genre {index + 2}:</label>
+                            <select name="maingenre" onChange={handleGenreChange}>
+                                <option value="0">Select a genre...</option>
+                                {
+                                    genres.map((genre, index) => (
+                                        <option value={genre.id} key={genre.id}>{genre.name}</option>
+                                    ))
+                                }
+
+                            </select>
+                            {errors.genres_id && <span className="error">{errors.genres_id}</span>}
+                        </div>
+
+                    ))
+                }
+
+
+
+
 
                 <div>
                     <button type="button" onClick={addSongContainer}>Add song</button>

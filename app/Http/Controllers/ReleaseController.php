@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Band;
+use App\Models\Genre;
 use App\Models\Release;
 use App\Models\Song;
 use App\Models\SongReview;
@@ -55,6 +56,7 @@ class ReleaseController extends Controller
         return Inertia::render("Bands/AddRelease", ([
             'band' => $band,
             'release_types' => $releaseTypes,
+            'genres' => Genre::all(),
         ]));
     }
     public function createRelease($id, Request $request)
@@ -70,6 +72,8 @@ class ReleaseController extends Controller
             'songs.*.title' => 'required|string|max:255',
             'songs.*.duration' => 'required|string',
             'songs.*.lyrics' => 'nullable|string',
+            'genres_id' => 'required|array|min:1',
+            'genres_id.*' => 'exists:genres,id',
         ]);
 
         $release = Release::create([
@@ -82,6 +86,8 @@ class ReleaseController extends Controller
         ]);
 
         $release->bands()->attach($id);
+
+        $release->genres()->attach($validated['genres_id']);
 
         // Crear las canciones
         if (!empty($validated['songs'])) {
@@ -106,7 +112,7 @@ class ReleaseController extends Controller
         //     return Inertia::render("Bands/AddBand", ([
         //     'genres' => \App\Models\Genre::all()
         // ]));
-        return redirect()->route('bands.index')
+        return redirect()->route('band.index')
             ->with('success', 'Band created successfully!');
     }
 }

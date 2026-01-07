@@ -79,7 +79,7 @@ class BandController extends Controller
         // Adjuntar los géneros a la banda
         $band->genres()->attach($validated['genres_id']);
 
-        return redirect()->route('bands.index')
+        return redirect()->route('band.index')
             ->with('success', 'Band created successfully!');
     }
 

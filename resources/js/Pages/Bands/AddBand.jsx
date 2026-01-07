@@ -17,7 +17,7 @@ export default function AddBand({ genres }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('bands.storeBand'));
+        post(route('band.storeBand'));
     };
 
     const handleGenreChange = (e) => {

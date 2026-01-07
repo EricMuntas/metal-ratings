@@ -37,5 +37,10 @@ class Release extends Model
         return $this->belongsToMany(Song::class)->withTimestamps();
     }
 
+        public function genres()
+    {
+        return $this->belongsToMany(Genre::class)->withTimestamps();
+    }
+
 
 }

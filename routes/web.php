@@ -6,6 +6,7 @@ use App\Http\Controllers\BandController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ReleaseController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SongController;
 use App\Models\Band;
 use Illuminate\Support\Facades\Route;
 
@@ -24,16 +25,18 @@ Route::get('/test', function () {
     ]);
 });
 
-Route::get('/bands', [BandController::class, 'index'])->name('bands.index');
-Route::get('/bands/{id}', [BandController::class, 'show'])->name('bands.show');
+Route::get('/bands', [BandController::class, 'index'])->name('band.index');
+Route::get('/bands/{id}', [BandController::class, 'show'])->name('band.show');
 Route::get('/add-band', [BandController::class, 'showAddBandForm']);
-Route::post('/add-band', [BandController::class, 'createBand'])->name('bands.storeBand');
+Route::post('/add-band', [BandController::class, 'createBand'])->name('band.storeBand');
 
 
 Route::get('/bands/{id}/add-release', [ReleaseController::class, 'showAddReleaseForm']);
 Route::post('/bands/{id}/add-release', [ReleaseController::class, 'createRelease'])->name('release.storeRelease');
 Route::get('/bands/{band}/{release}', [ReleaseController::class, 'showRelease'])->name('release.show');
 
+Route::get('/songs/{id}', [SongController::class, 'showSong'])->name('song.showSong');
+Route::get('/songs/{id}/reviews', [SongController::class, 'showSongReviews'])->name('song.showSongReviews');
 
 Route::get('/add-genre', [GenreController::class, 'showAddGenreForm'])->name('genre.showAddGenreForm');
 Route::post('/add-genre', [GenreController::class, 'store'])->name('genre.store');

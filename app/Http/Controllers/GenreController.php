@@ -29,7 +29,7 @@ class GenreController extends Controller
             'name' => $validated['name'],
         ]);
 
-        return redirect()->route('bands.index')
+        return redirect()->route('band.index')
             ->with('success', 'Genre created successfully!');
 
     }
