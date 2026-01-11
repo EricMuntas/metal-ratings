@@ -7,8 +7,8 @@ export default function SongsTable({ songs, onWriteReview, myReviews }) {
         <>
             <h1 className="flex justify-center text-2xl">Songs</h1>
 
-            <div className="border rounded-xl m-8 p-2 border-black">
-                <div className="grid grid-cols-5 bg-gray-100">
+            <div className="table-container">
+                <div className="grid grid-cols-5 table-header">
                     <span className="col-span-2">Title</span>
                     <span className="col-span-1">Duration</span>
                     <span className="col-span-1">Rating</span>

@@ -11,13 +11,16 @@ export default function AddBand({ genres }) {
         genres_id: [],
         country: '',
         rating: null,
+        main_photo: null,
     });
 
     const [genresArray, setGenres] = useState([]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('band.storeBand'));
+        post(route('band.storeBand'), {
+            forceFormData: true,  
+        });
     };
 
     const handleGenreChange = (e) => {
@@ -77,6 +80,17 @@ export default function AddBand({ genres }) {
                 </div>
 
                 <div>
+                    <label htmlFor="phpo">Photo:</label>
+                    <input
+                        type="file"
+                        name="main_photo"
+                        accept="image/*"
+                        onChange={e => setData('main_photo', e.target.files[0])}
+                    />
+                    {errors.main_photo && <span className="error">{errors.main_photo}</span>}
+                </div>
+
+                <div>
                     <label htmlFor="maingenre">Genres:</label>
                     <select name="maingenre" onChange={handleGenreChange}>
                         <option value="0">Select a genre...</option>
@@ -97,7 +111,7 @@ export default function AddBand({ genres }) {
                     genresArray.map((newGenre, index) => (
 
                         <div key={index} >
-                            <label htmlFor={"newGenre" + 1}>Genre {index + 2 }:</label>
+                            <label htmlFor={"newGenre" + 1}>Genre {index + 2}:</label>
                             <select name="maingenre" onChange={handleGenreChange}>
                                 <option value="0">Select a genre...</option>
                                 {

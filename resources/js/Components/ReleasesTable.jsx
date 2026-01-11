@@ -10,8 +10,8 @@ export default function ReleasesTable({ releases, onWriteReleaseReview, band_id,
     return (
         <>
             <h1 className="flex justify-center text-2xl">Releases</h1>
-            <div className="border rounded-xl m-8 p-2 border-black">
-                <div className="grid grid-cols-8 bg-gray-100">
+            <div className="table-container">
+                <div className="grid grid-cols-8 table-header">
                     <span className="col-span-3">
                         Name
                     </span>

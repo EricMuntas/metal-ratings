@@ -9,6 +9,7 @@ use App\Models\ReleaseReview;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Storage;
 
 class BandController extends Controller
 {
@@ -22,6 +23,7 @@ class BandController extends Controller
 
         return Inertia::render("Bands/Bands", ([
             'bands' => $all_bands,
+            'genres' => Genre::all(),
         ]));
     }
 
@@ -65,18 +67,27 @@ class BandController extends Controller
             'genres_id' => 'required|array|min:1',
             'genres_id.*' => 'exists:genres,id',
             'country' => 'nullable|string|max:255',
+            'main_photo' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
+
+        $path = null;
+
+        if ($request->hasFile('main_photo')) {
+
+            $path = $request->file('main_photo')->store('bands', 'public');
+
+        }
 
         $band = Band::create([
             'name' => $validated['name'],
             'formed_year' => $validated['formed_year'],
             'country' => $validated['country'] ?? 'Unknown',
             'rating' => null,
+            'main_photo' => $path,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        // Adjuntar los géneros a la banda
         $band->genres()->attach($validated['genres_id']);
 
         return redirect()->route('band.index')

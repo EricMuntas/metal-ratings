@@ -6,8 +6,8 @@ export default function BandsTable({ bands }) {
         <>
             <h1 className="flex justify-center text-2xl">Bands</h1>
 
-            <div className="border rounded-xl m-8 p-2 border-black">
-                <div className="grid grid-cols-8 bg-gray-100">
+            <div className="table-container">
+                <div className="grid grid-cols-8 table-header">
                     <span className="col-span-3">Name</span>
                     <span className="col-span-2">Genre</span>
                     <span className="col-span-1">Country</span>

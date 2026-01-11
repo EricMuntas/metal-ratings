@@ -16,6 +16,8 @@ class Band extends Model
         'formed_year',
         'country',
         'rating',
+        'main_photo',
+        'alt_photos',
     ];
 
     public function releases()
