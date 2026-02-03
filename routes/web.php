@@ -26,9 +26,11 @@ Route::get('/test', function () {
 });
 
 Route::get('/bands', [BandController::class, 'index'])->name('band.index');
+Route::get('/bands/search', [BandController::class, 'searchBand'])->name('band.searchBand');
 Route::get('/bands/{id}', [BandController::class, 'show'])->name('band.show');
 Route::get('/add-band', [BandController::class, 'showAddBandForm']);
 Route::post('/add-band', [BandController::class, 'createBand'])->name('band.storeBand');
+
 
 
 Route::get('/bands/{id}/add-release', [ReleaseController::class, 'showAddReleaseForm']);

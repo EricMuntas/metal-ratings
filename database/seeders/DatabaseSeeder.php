@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
             'formed_year' => 1969,
             'country' => 'United Kingdom',
             'rating' => 10,
+            'main_photo' => 'https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/bb46/live/455d1890-67a1-11f0-8979-21e9e3d3b0da.jpg.webp',
         ]);
 
         $album1 = Release::create([
@@ -58,7 +59,7 @@ class DatabaseSeeder extends Seeder
 
             'title' => 'Black Sabbath',
             'lyrics' =>
-                "What is this that stands before me?
+            "What is this that stands before me?
 Figure in black which points at me
 Turn 'round quick, and start to run
 Find out I'm the chosen one
@@ -81,7 +82,7 @@ No, no, please, no!",
         $song2 = Song::create([
             'title' => 'The Wizard',
             'lyrics' =>
-                "	Misty morning, clouds in the sky
+            "	Misty morning, clouds in the sky
 Without warning, the wizard walks by
 Casting his shadow, weaving his spell
 Funny clothes, tinkling bell
@@ -264,11 +265,11 @@ I was born without you baby,
 But my feelings were a little bit too strong
 Just a little bit too strong",
             'duration' => '10:32',
-            'isCover' => true, 
+            'isCover' => true,
         ]);
 
 
-$album1->songs()->attach([$song1, $song2, $song3, $song4, $song6, $song7]);
+        $album1->songs()->attach([$song1, $song2, $song3, $song4, $song6, $song7]);
         // $album2 = Release::create([
         //     // 'band_id' => json_encode([1]),
         //     'name' => "Paranoid",
@@ -277,6 +278,18 @@ $album1->songs()->attach([$song1, $song2, $song3, $song4, $song6, $song7]);
         // ]);
 
         // $album2->bands()->attach([1]);
+
+
+        for ($i = 0; $i < 10; $i++) {
+            $band = Band::create([
+                'name' => "Band $i",
+                'formed_year' => 2000,
+                'country' => 'Unknown',
+                'main_photo' => 'https://www.rae.es/sites/default/files/styles/wysiwyg_100_/public/2021-07/ramdomtwitter_Mesa%20de%20trabajo%201.png?itok=JfO9YVoD',
+            ]);
+        }
+
+
 
 
         User::factory()->create([

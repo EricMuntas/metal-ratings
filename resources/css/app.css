@@ -33,7 +33,7 @@ button {
 
 .table-container {
 
-    @apply border rounded-xl m-8 p-2 border-black;
+    @apply border rounded-xl m-8 p-2 border-black w-3/4;
 
 }
 

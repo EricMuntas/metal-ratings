@@ -8,6 +8,7 @@ use App\Models\Release;
 use App\Models\Song;
 use App\Models\SongReview;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -27,7 +28,7 @@ class ReleaseController extends Controller
         $songIds = $release->songs->pluck('id');
 
         // Obtener las reviews del usuario actual para esas canciones
-        $myReviews = SongReview::where('user_id', auth()->id())
+        $myReviews = SongReview::where('user_id', Auth::id())
             ->whereIn('song_id', $songIds)
             ->get()
             ->keyBy('song_id');

@@ -7,6 +7,7 @@ use App\Models\Genre;
 use App\Models\Release;
 use App\Models\ReleaseReview;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Storage;
@@ -37,7 +38,7 @@ class BandController extends Controller
 
         $releasesIds = $band->releases->pluck('id');
 
-        $myReviews = ReleaseReview::where('user_id', auth()->id())
+        $myReviews = ReleaseReview::where('user_id', Auth::id())
             ->whereIn('release_id', $releasesIds)
             ->get()
             ->keyBy('release_id');
@@ -75,7 +76,6 @@ class BandController extends Controller
         if ($request->hasFile('main_photo')) {
 
             $path = $request->file('main_photo')->store('bands', 'public');
-
         }
 
         $band = Band::create([
@@ -94,4 +94,31 @@ class BandController extends Controller
             ->with('success', 'Band created successfully!');
     }
 
+
+    public function searchBand(Request $request)
+    {
+        $query = Band::query();
+
+        if ($request->has('name') && $request->name) {
+            $query->where('name', 'LIKE', '%' . $request->name . '%');
+        }
+
+        if ($request->has('status') && $request->status) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->has('genre') && $request->genre) {
+            $query->whereHas('genres', function ($q) use ($request) {
+                $q->where('genres.id', $request->genre);
+            });
+        }
+
+        $bands = $query->get();
+
+        return Inertia::render("Bands/SearchBand", [
+            'genres' => Genre::all(),
+            'bands' => $bands,
+            'filters' => $request->only(['name', 'status', 'genre']), // Para mantener los valores en el form
+        ]);
+    }
 }

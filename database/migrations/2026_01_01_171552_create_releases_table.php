@@ -18,6 +18,8 @@ return new class extends Migration
             $table->float('rating')->nullable();
             $table->date('release_date')->nullable();
             $table->enum('type', ['LP', 'EP', 'Single', 'Split', 'Compilation', 'Demo']);
+            $table->string('main_photo')->nullable();
+            $table->json('alt_photos')->nullable();
             $table->timestamps();
         });
     }
