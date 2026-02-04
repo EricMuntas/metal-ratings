@@ -8,10 +8,10 @@ export default function AppLayout({ title, children }) {
             <Head>
                 <title>{title}</title>
             </Head>
-            <div className="flex flex-col min-h-screen">
+            <div className="flex flex-col min-h-screen bg-gray-200">
                 <Navbar />
 
-                <main className="grow flex items-center flex-col mx-auto w-5/6">
+                <main className="grow flex items-center flex-col mx-auto w-4/6 bg-white">
                     {children}
                 </main>
                 <Footer />

@@ -42,3 +42,10 @@ button {
     @apply bg-gray-300;
 
 }
+
+
+.profile-nav {
+
+    @apply w-full h-full flex justify-center items-center hover:bg-gray-900 cursor-pointer;
+
+}

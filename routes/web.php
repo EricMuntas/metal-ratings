@@ -7,6 +7,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\ReleaseController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SongController;
+use App\Http\Controllers\UserProfileController;
 use App\Models\Band;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,10 @@ Route::get('/test', function () {
         'name' => 'Test'
     ]);
 });
+
+Route::get('/users/{id}', [UserProfileController::class, 'show'])->name('user.showProfile');
+Route::get('/users/{id}/edit', [UserProfileController::class, 'showEditProfile'])->name('user.showEditProfile');
+Route::put('/users/{id}/edit', [UserProfileController::class, 'editProfile'])->name('user.editProfile');
 
 Route::get('/bands', [BandController::class, 'index'])->name('band.index');
 Route::get('/bands/search', [BandController::class, 'searchBand'])->name('band.searchBand');

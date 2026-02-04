@@ -1,5 +1,6 @@
 import { Link } from "@inertiajs/react";
 import { usePage, router } from '@inertiajs/react';
+import { route } from "ziggy-js";
 
 export default function Navbar() {
 
@@ -28,7 +29,7 @@ export default function Navbar() {
                     <Link href={'/add-genre'}>ADD GENRE</Link>
                 </li>
                 <li>
-                    <Link>{auth.user.name}</Link>
+                    <Link href={route('user.showProfile', auth.user.id)}>{auth.user.name}</Link>
                 </li>
                 <li>
                     <span onClick={handleLogout} className="cursor-pointer">Cerrar Sesión</span>

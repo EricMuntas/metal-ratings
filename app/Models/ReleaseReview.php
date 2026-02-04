@@ -14,4 +14,14 @@ class ReleaseReview extends Model
         'review',
         'release_id',
     ];
+
+        public function release()
+    {
+        return $this->belongsTo(Release::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
