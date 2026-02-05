@@ -76,6 +76,7 @@ class BandController extends Controller
         if ($request->hasFile('main_photo')) {
 
             $path = $request->file('main_photo')->store('bands', 'public');
+            // saves as -> bands/s4CLZIfpNDUuAvNfUsn5YhEZiJttQpP5233kBsBs.jpg
         }
 
         $band = Band::create([

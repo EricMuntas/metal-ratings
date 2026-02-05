@@ -5,7 +5,6 @@ import { route } from "ziggy-js";
 
 export default function ShowSongReviews({ song, reviews }) {
 
-    console.log(reviews);
 
     return (
         <>

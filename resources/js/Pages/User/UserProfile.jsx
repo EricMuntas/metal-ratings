@@ -3,6 +3,7 @@ import AppLayout from "../../Layouts/AppLayout"
 import { route } from "ziggy-js";
 import { useState } from "react";
 import ReleasesReviewTable from "../../Components/ReleasesReviewTable";
+import SongsReviewTable from "../../Components/SongsReviewTable";
 
 export default function UserProfile({ user, releaseReviews, reviewedReleaseBands, songReviews }) {
 
@@ -14,7 +15,7 @@ export default function UserProfile({ user, releaseReviews, reviewedReleaseBands
 
     const [favouritesTab, setFavouritesTab] = useState('favourite-bands-tab');
 
-    console.log(releaseReviews)
+
 
 
     return (
@@ -76,12 +77,17 @@ export default function UserProfile({ user, releaseReviews, reviewedReleaseBands
                     (tab == 'reviews-tab' && reviewTab == 'review-releases-tab') && (
 
                         <>
-
-                            <h1>test</h1>
-                            <ReleasesReviewTable releasesReviews={releaseReviews}/>
-                        
+                            <ReleasesReviewTable releasesReviews={releaseReviews} />
                         </>
 
+                    )
+                    }
+                    {
+                        (tab == 'reviews-tab' && reviewTab == 'review-songs-tab') && (
+                        <>
+                            <SongsReviewTable songReviews={songReviews} />
+
+                        </>
                     )
                 }
 

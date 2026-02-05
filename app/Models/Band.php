@@ -32,7 +32,7 @@ class Band extends Model
 
       public function songs()
     {
-        return $this->belongsToMany(Song::class)->withTimestamps();
+        return $this->belongsToMany(Song::class, 'band_song')->withTimestamps();
     }
 
 }

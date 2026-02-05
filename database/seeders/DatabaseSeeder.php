@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
             'name' => "Black Sabbath",
             'type' => "LP",
             'release_date' => $faker->date,
+            'main_photo' => 'releases/black-sabbath.jpg',
         ]);
 
         $band->genres()->attach([1, 2]);
@@ -269,7 +270,12 @@ Just a little bit too strong",
         ]);
 
 
+
         $album1->songs()->attach([$song1, $song2, $song3, $song4, $song6, $song7]);
+        
+        // Associate songs with the band (Black Sabbath)
+        $band->songs()->attach([$song1, $song2, $song3, $song4, $song5, $song6, $song7]);
+
         // $album2 = Release::create([
         //     // 'band_id' => json_encode([1]),
         //     'name' => "Paranoid",

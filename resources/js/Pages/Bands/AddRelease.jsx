@@ -16,7 +16,7 @@ export default function AddRelease({ band, release_types, genres }) {
 
     
     const [genresArray, setGenres] = useState([]);
-    console.log(genres);
+
 
     const handleGenreChange = (e) => {
         const genreId = parseInt(e.target.value);

@@ -20,11 +20,11 @@ class Song extends Model
 
     public function releases()
     {
-        return $this->belongsToMany(Release::class)->withTimestamps();
+        return $this->belongsToMany(Release::class, 'release_song')->withTimestamps();
     }
     public function bands()
     {
-        return $this->belongsToMany(Band::class)->withTimestamps();
+        return $this->belongsToMany(Band::class, 'band_song')->withTimestamps();
     }
 
         public function reviews()
