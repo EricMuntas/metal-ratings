@@ -14,7 +14,7 @@ export default function AddRelease({ band, release_types, genres }) {
         genres_id: [],
     });
 
-    
+
     const [genresArray, setGenres] = useState([]);
 
 
@@ -64,7 +64,16 @@ export default function AddRelease({ band, release_types, genres }) {
                     <input type="text" name="name" id="" placeholder="Enter Sandman"
                         value={data.name} onChange={e => setData('name', e.target.value)} />
                 </div>
-
+                <div>
+                    <label htmlFor="phpo">Photo:</label>
+                    <input
+                        type="file"
+                        name="main_photo"
+                        accept="image/*"
+                        onChange={e => setData('main_photo', e.target.files[0])}
+                    />
+                    {errors.main_photo && <span className="error">{errors.main_photo}</span>}
+                </div>
                 <div>
                     <label htmlFor="releaseDate">Release date:</label>
                     <input type="date" name="releaseDate" id="" value={data.release_date} onChange={e => setData('release_date', e.target.value)} />

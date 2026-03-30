@@ -61,13 +61,13 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', function () {
         return Inertia::render('Auth/Login');
     })->name('login');
-    
+
     Route::post('/login', [LoginController::class, 'store']);
-    
+
     Route::get('/register', function () {
         return Inertia::render('Auth/Register');
     })->name('register');
-    
+
     Route::post('/register', [RegisterController::class, 'store']);
 });
 
@@ -76,8 +76,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    
+
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+
+    Route::post('/bands/{id}/like', [BandController::class, 'toggleLike'])->name('band.toggleLike');
 });
 
 // Ruta principal

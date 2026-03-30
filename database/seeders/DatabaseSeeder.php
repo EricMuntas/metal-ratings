@@ -300,7 +300,7 @@ Just a little bit too strong",
 
         User::factory()->create([
             'name' => 'Test',
-            'email' => 'ericmuntas@gmail.com',
+            'email' => 'test@gmail.com',
             'password' => 'ABCabc1@',
         ]);
     }

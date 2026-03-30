@@ -6,7 +6,7 @@ import GridItem from "./GridItem";
 
 export default function ReleasesReviewTable({ releasesReviews }) {
 
-       // Inicializar desde localStorage o usar 'table' como default
+    // Inicializar desde localStorage o usar 'table' como default
     const [gridView, setGridView] = useState(() => {
         return localStorage.getItem('gridView') || 'table';
     });
@@ -94,7 +94,7 @@ export default function ReleasesReviewTable({ releasesReviews }) {
                                 <div className="grid grid-cols-3 w-full gap-4 mb-10">
                                     {
                                         releasesReviews.map((releaseReview, index) => (
-                                            <GridItem release={releaseReview} key={releaseReview.id}></GridItem>
+                                            <GridItem release={releaseReview} type='release' key={releaseReview.id} ></GridItem>
                                         ))
                                     }
 

@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ReleaseReview;
 use App\Models\Song;
 use App\Models\SongReview;
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {

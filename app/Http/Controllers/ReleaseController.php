@@ -75,11 +75,18 @@ class ReleaseController extends Controller
             'songs.*.lyrics' => 'nullable|string',
             'genres_id' => 'required|array|min:1',
             'genres_id.*' => 'exists:genres,id',
+            'main_photo' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
+
+        $path = null;
+
+        if ($request->hasFile('main_photo')) {
+            $path = $request->file('main_photo')->store('bands', 'public');
+        }
 
         $release = Release::create([
             'name' => $validated['name'],
-            // 'band_id' => json_encode($validated['band_id']),
+            'main_photo' => $path,
             'release_date' => $validated['release_date'],
             'type' => $validated['type'],
             'created_at' => now(),

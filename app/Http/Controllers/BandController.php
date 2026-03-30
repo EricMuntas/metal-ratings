@@ -43,11 +43,17 @@ class BandController extends Controller
             ->get()
             ->keyBy('release_id');
 
+        $isLiked = Auth::check()
+            ? $band->users()->where('user_id', Auth::id())->exists()
+            : false;
+
         return Inertia::render('Bands/ShowBand', [
             'band' => $band,
             'releases' => $band->releases,
             'band_genres' => $band_genres,
             'myReviews' => $myReviews,
+            'isLiked' => $isLiked,
+            'likesCount' => $band->users()->count(),
         ]);
     }
 
@@ -93,6 +99,17 @@ class BandController extends Controller
 
         return redirect()->route('band.index')
             ->with('success', 'Band created successfully!');
+    }
+
+
+    public function toggleLike(Request $request, $id)
+    {
+        $band = Band::findOrFail($id);
+        $band->users()->toggle(Auth::id());
+
+        $liked = $band->users()->where('user_id', Auth::id())->exists();
+
+        return back()->with('liked', $liked);
     }
 
 

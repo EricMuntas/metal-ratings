@@ -4,8 +4,9 @@ import { route } from "ziggy-js";
 import { useState } from "react";
 import ReleasesReviewTable from "../../Components/ReleasesReviewTable";
 import SongsReviewTable from "../../Components/SongsReviewTable";
+import BandsTable from "../../Components/BandsTable";
 
-export default function UserProfile({ user, releaseReviews, reviewedReleaseBands, songReviews }) {
+export default function UserProfile({ user, releaseReviews, reviewedReleaseBands, songReviews, likedBands }) {
 
     const { auth } = usePage().props;
 
@@ -22,7 +23,7 @@ export default function UserProfile({ user, releaseReviews, reviewedReleaseBands
         <>
             <AppLayout title={user.name + ' Profile'}>
 
-                <div className="bg-blue-300 w-full h-50 flex items-center">
+                <div className="bg-blue-300 w-full h-50 flex items-center flex-col md:flex-row">
 
                     <div className="h-32 w-32 bg-black m-10 shrink-0" id="profilepic"></div>
                     <div className="w-full mr-10">
@@ -81,16 +82,21 @@ export default function UserProfile({ user, releaseReviews, reviewedReleaseBands
                         </>
 
                     )
-                    }
-                    {
-                        (tab == 'reviews-tab' && reviewTab == 'review-songs-tab') && (
+                }
+                {
+                    (tab == 'reviews-tab' && reviewTab == 'review-songs-tab') && (
                         <>
                             <SongsReviewTable songReviews={songReviews} />
-
                         </>
                     )
                 }
-
+                {
+                    (tab == 'favourites-tab' && favouritesTab == 'favourite-bands-tab') && (
+                        <>
+                            <BandsTable bands={likedBands}></BandsTable>
+                        </>
+                    )
+                }
 
 
 
