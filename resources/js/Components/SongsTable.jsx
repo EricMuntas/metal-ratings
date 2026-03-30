@@ -3,6 +3,11 @@ import { Star } from "lucide-react";
 
 export default function SongsTable({ songs, onWriteReview, myReviews }) {
 
+    // myReviews llega como array [{song_id, ...}], lo convertimos a {song_id: review}
+    const reviewsMap = Array.isArray(myReviews)
+        ? Object.fromEntries(myReviews.map(r => [r.song_id, r]))
+        : (myReviews ?? {});
+
     return (
         <>
             <h1 className="flex justify-center text-2xl">Songs</h1>
@@ -14,10 +19,10 @@ export default function SongsTable({ songs, onWriteReview, myReviews }) {
                     <span className="col-span-1">Rating</span>
                     <span className="col-span-1"></span>
                 </div>
-                {songs.map((song) => {
+                {(songs ?? []).map((song) => {
 
-                    const hasReview = !!myReviews[song.id];
-                    
+                    const hasReview = !!reviewsMap[song.id];
+
                     return (
                         <div className="grid grid-cols-5" key={song.id}>
                             <span className="col-span-2">
@@ -30,10 +35,8 @@ export default function SongsTable({ songs, onWriteReview, myReviews }) {
                                 {song.rating ?? "No rating yet"}
                             </span>
                             <span className="col-span-1">
-
                                 <Star
-                                    className={`cursor-pointer ${myReviews[song.id] ? "bg-yellow-500" : ""
-                                        }`}
+                                    className={`cursor-pointer ${hasReview ? "bg-yellow-500" : ""}`}
                                     onClick={() => onWriteReview(song)}
                                 />
                             </span>

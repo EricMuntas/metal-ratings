@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Band;
 use App\Models\Genre;
 use App\Models\Release;
+use App\Models\ReleaseReview;
 use App\Models\Song;
 use App\Models\SongReview;
 use Illuminate\Http\Request;
@@ -110,9 +111,6 @@ class ReleaseController extends Controller
                 $song->bands()->attach($id);
                 $song->releases()->attach($release->id);
             }
-
-
-
         }
 
         // $release->save();
@@ -122,5 +120,18 @@ class ReleaseController extends Controller
         // ]));
         return redirect()->route('band.index')
             ->with('success', 'Band created successfully!');
+    }
+
+    public function showReleaseReviews($band_id, $release_id)
+    {
+
+        $release = Release::with(['bands'])->find($release_id);
+
+        $reviews = ReleaseReview::where('release_id', $release_id)->get();
+
+        return Inertia::render('Bands/ShowReleaseReviews', [
+            'release' => $release,
+            'reviews' => $reviews,
+        ]);
     }
 }

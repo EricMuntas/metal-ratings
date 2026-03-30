@@ -12,8 +12,11 @@ export default function GridItem({ item, type }) {
         case 'band':
             link = '/bands/' + item.id;
             break;
+        case 'releaseReview':
+            link = '/bands/' + item.release?.bands[0]?.id + '/' + item.release_id + '/reviews';
+            break;
         case 'release':
-            link = '/songs/' + item.release?.id + '/reviews';
+            link = '/bands/' + item.pivot?.band_id + '/' + item.id;
             break;
         default:
             break;

@@ -130,7 +130,7 @@ export default function ReleasesTable({ releases, onWriteReleaseReview, band_id,
                                 <div className="grid grid-cols-3 w-full gap-4 mb-10">
                                     {
                                         releases.map((release, index) => (
-                                            <GridItem item={release} type='release' key={release.id} ></GridItem>
+                                            <GridItem item={release} type={isReview ? 'releaseReview' : 'release'} key={release.id} ></GridItem>
                                         ))
                                     }
 

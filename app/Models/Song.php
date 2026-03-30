@@ -27,7 +27,7 @@ class Song extends Model
         return $this->belongsToMany(Band::class, 'band_song')->withTimestamps();
     }
 
-        public function reviews()
+    public function reviews()
     {
         return $this->hasMany(SongReview::class);
     }
@@ -38,4 +38,8 @@ class Song extends Model
         $this->save();
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
 }

@@ -41,6 +41,7 @@ Route::post('/add-band', [BandController::class, 'createBand'])->name('band.stor
 Route::get('/bands/{id}/add-release', [ReleaseController::class, 'showAddReleaseForm']);
 Route::post('/bands/{id}/add-release', [ReleaseController::class, 'createRelease'])->name('release.storeRelease');
 Route::get('/bands/{band}/{release}', [ReleaseController::class, 'showRelease'])->name('release.show');
+Route::get('/bands/{band}/{release}/reviews', [ReleaseController::class, 'showReleaseReviews'])->name('release.showReleaseReviews');
 
 Route::get('/songs/{id}', [SongController::class, 'showSong'])->name('song.showSong');
 Route::get('/songs/{id}/reviews', [SongController::class, 'showSongReviews'])->name('song.showSongReviews');
@@ -80,6 +81,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 
     Route::post('/bands/{id}/like', [BandController::class, 'toggleLike'])->name('band.toggleLike');
+
+    Route::post('/songs/{id}/like', [SongController::class, 'toggleLike'])->name('song.toggleLike');
 });
 
 // Ruta principal

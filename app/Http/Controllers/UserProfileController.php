@@ -9,6 +9,7 @@ use App\Models\Band;
 use App\Models\SongReview;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class UserProfileController extends Controller
@@ -35,7 +36,7 @@ class UserProfileController extends Controller
 
         $userLikedBands = $user->likedBands()->with('genres')->get();
 
-
+        $userLikedSongs = $user->likedSongs()->with('bands')->get();
 
         return Inertia::render('User/UserProfile', [
 
@@ -43,6 +44,7 @@ class UserProfileController extends Controller
             'releaseReviews' => $userReleaseReviews,
             'songReviews' => $userSongReviews,
             'likedBands' => $userLikedBands,
+            'likedSongs' => $userLikedSongs,
 
         ]);
     }

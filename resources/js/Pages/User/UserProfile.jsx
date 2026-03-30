@@ -2,12 +2,12 @@ import { usePage } from "@inertiajs/react";
 import AppLayout from "../../Layouts/AppLayout"
 import { route } from "ziggy-js";
 import { useState } from "react";
-import ReleasesReviewTable from "../../Components/ReleasesReviewTable";
 import SongsReviewTable from "../../Components/SongsReviewTable";
 import BandsTable from "../../Components/BandsTable";
 import ReleasesTable from "../../Components/ReleasesTable";
+import SongsTable from "../../Components/SongsTable";
 
-export default function UserProfile({ user, releaseReviews, reviewedReleaseBands, songReviews, likedBands }) {
+export default function UserProfile({ user, releaseReviews, reviewedReleaseBands, songReviews, likedBands, likedSongs }) {
 
     const { auth } = usePage().props;
 
@@ -17,7 +17,25 @@ export default function UserProfile({ user, releaseReviews, reviewedReleaseBands
 
     const [favouritesTab, setFavouritesTab] = useState('favourite-bands-tab');
 
+    const openWriteReviewModal = (song) => {
 
+
+        setSelectedSong(song);
+
+        if (myReviews) {
+            // Convertir a array si no lo es
+            const reviewsArray = Array.isArray(myReviews)
+                ? myReviews
+                : Object.values(myReviews);
+
+            const foundReview = reviewsArray.find(
+                (review) => review.song_id === song.id
+            );
+
+            setSelectedSongReview(foundReview || null);
+        }
+        setIsModalOpen(true);
+    };
 
 
     return (
@@ -98,7 +116,13 @@ export default function UserProfile({ user, releaseReviews, reviewedReleaseBands
                         </>
                     )
                 }
-
+                {
+                    (tab == 'favourites-tab' && favouritesTab == 'favourite-songs-tab') && (
+                        <>
+                            <SongsTable songs={likedSongs} onWriteReview={openWriteReviewModal} myReviews={songReviews} ></SongsTable>
+                        </>
+                    )
+                }
 
 
 
