@@ -5,6 +5,7 @@ import { useState } from "react";
 import ReleasesReviewTable from "../../Components/ReleasesReviewTable";
 import SongsReviewTable from "../../Components/SongsReviewTable";
 import BandsTable from "../../Components/BandsTable";
+import ReleasesTable from "../../Components/ReleasesTable";
 
 export default function UserProfile({ user, releaseReviews, reviewedReleaseBands, songReviews, likedBands }) {
 
@@ -78,7 +79,7 @@ export default function UserProfile({ user, releaseReviews, reviewedReleaseBands
                     (tab == 'reviews-tab' && reviewTab == 'review-releases-tab') && (
 
                         <>
-                            <ReleasesReviewTable releasesReviews={releaseReviews} />
+                            <ReleasesTable releases={releaseReviews} isReview={true} />
                         </>
 
                     )
