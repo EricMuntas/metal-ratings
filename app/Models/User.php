@@ -56,4 +56,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Song::class, 'song_user')->withTimestamps();
     }
+    public function likedReleases()
+    {
+        return $this->belongsToMany(Release::class, 'release_user')->withTimestamps();
+    }
 }

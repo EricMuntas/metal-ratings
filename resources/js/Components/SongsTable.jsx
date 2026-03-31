@@ -11,39 +11,53 @@ export default function SongsTable({ songs, onWriteReview, myReviews }) {
     return (
         <>
             <h1 className="flex justify-center text-2xl">Songs</h1>
+            {(songs.length > 0) ? (
+                <div className="table-container">
+                    <div className="grid grid-cols-5 table-header">
+                        <span className="col-span-2">Title</span>
+                        <span className="col-span-1">Duration</span>
+                        <span className="col-span-1">Rating</span>
+                        <span className="col-span-1"></span>
+                    </div>
+                    {(songs ?? []).map((song) => {
 
-            <div className="table-container">
-                <div className="grid grid-cols-5 table-header">
-                    <span className="col-span-2">Title</span>
-                    <span className="col-span-1">Duration</span>
-                    <span className="col-span-1">Rating</span>
-                    <span className="col-span-1"></span>
-                </div>
-                {(songs ?? []).map((song) => {
+                        const hasReview = !!reviewsMap[song.id];
 
-                    const hasReview = !!reviewsMap[song.id];
+                        return (
+                            <div className="grid grid-cols-5" key={song.id}>
+                                <span className="col-span-2">
+                                    <Link className="link" href={"/songs/" + song.id}>
+                                        {song.title}
+                                    </Link>
+                                </span>
+                                <span className="col-span-1">{song.duration}</span>
+                                <span className="col-span-1">
+                                    {song.rating ?? "No rating yet"}
+                                </span>
+                                <span className="col-span-1">
+                                    <Star
+                                        className={`cursor-pointer ${hasReview ? "bg-yellow-500" : ""}`}
+                                        onClick={() => onWriteReview(song)}
+                                    />
+                                </span>
+                            </div>
+                        )
+                    })}
+                </div>)
+                :
+                (
 
-                    return (
-                        <div className="grid grid-cols-5" key={song.id}>
-                            <span className="col-span-2">
-                                <Link className="link" href={"/songs/" + song.id}>
-                                    {song.title}
-                                </Link>
-                            </span>
-                            <span className="col-span-1">{song.duration}</span>
-                            <span className="col-span-1">
-                                {song.rating ?? "No rating yet"}
-                            </span>
-                            <span className="col-span-1">
-                                <Star
-                                    className={`cursor-pointer ${hasReview ? "bg-yellow-500" : ""}`}
-                                    onClick={() => onWriteReview(song)}
-                                />
-                            </span>
-                        </div>
-                    )
-                })}
-            </div>
+                    <p>No songs yet</p>
+
+                )
+            }
         </>
-    );
+    )
 }
+//   { (releases.length > 0) ? (<></>) :
+//                     (
+//                         <>
+//                             <p>No reviews yet</p>
+//                         </>
+//                     )
+//                 }

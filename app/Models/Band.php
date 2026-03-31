@@ -30,14 +30,13 @@ class Band extends Model
         return $this->belongsToMany(Genre::class)->withTimestamps();
     }
 
-      public function songs()
+    public function songs()
     {
         return $this->belongsToMany(Song::class, 'band_song')->withTimestamps();
     }
 
-       public function users()
+    public function users()
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
-
 }

@@ -34,10 +34,17 @@ class ReleaseController extends Controller
             ->get()
             ->keyBy('song_id');
 
+        $isLiked = Auth::check()
+            ? $release->users()->where('user_id', Auth::id())->exists()
+            : false;
+
+
         return Inertia::render("Bands/ShowRelease", ([
             // 'band' => $band,
             'release' => $release,
             'myReviews' => $myReviews,
+            'isLiked' => $isLiked,
+            'likesCount' => $release->users()->count(),
         ]));
     }
 
@@ -133,5 +140,15 @@ class ReleaseController extends Controller
             'release' => $release,
             'reviews' => $reviews,
         ]);
+    }
+
+    public function toggleLike(Request $request, $id)
+    {
+        $release = Release::findOrFail($id);
+        $release->users()->toggle(Auth::id());
+
+        $liked = $release->users()->where('user_id', Auth::id())->exists();
+
+        return back()->with('liked', $liked);
     }
 }

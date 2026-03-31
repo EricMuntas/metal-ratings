@@ -36,6 +36,8 @@ class UserProfileController extends Controller
 
         $userLikedBands = $user->likedBands()->with('genres')->get();
 
+        $userLikedReleases = $user->likedReleases()->with('genres')->get();
+
         $userLikedSongs = $user->likedSongs()->with('bands')->get();
 
         return Inertia::render('User/UserProfile', [
@@ -44,6 +46,7 @@ class UserProfileController extends Controller
             'releaseReviews' => $userReleaseReviews,
             'songReviews' => $userSongReviews,
             'likedBands' => $userLikedBands,
+            'likedReleases' => $userLikedReleases,
             'likedSongs' => $userLikedSongs,
 
         ]);

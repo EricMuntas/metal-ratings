@@ -82,9 +82,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/bands/{id}/like', [BandController::class, 'toggleLike'])->name('band.toggleLike');
 
+    Route::post('/bands/{band}/{release}/like', [ReleaseController::class, 'toggleLike'])->name('release.toggleLike');
+
     Route::post('/songs/{id}/like', [SongController::class, 'toggleLike'])->name('song.toggleLike');
 });
-
 // Ruta principal
 Route::get('/', function () {
     return redirect()->route('dashboard');

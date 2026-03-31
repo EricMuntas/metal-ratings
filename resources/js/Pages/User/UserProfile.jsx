@@ -7,7 +7,7 @@ import BandsTable from "../../Components/BandsTable";
 import ReleasesTable from "../../Components/ReleasesTable";
 import SongsTable from "../../Components/SongsTable";
 
-export default function UserProfile({ user, releaseReviews, reviewedReleaseBands, songReviews, likedBands, likedSongs }) {
+export default function UserProfile({ user, releaseReviews, reviewedReleaseBands, songReviews, likedBands, likedReleases, likedSongs }) {
 
     const { auth } = usePage().props;
 
@@ -113,6 +113,13 @@ export default function UserProfile({ user, releaseReviews, reviewedReleaseBands
                     (tab == 'favourites-tab' && favouritesTab == 'favourite-bands-tab') && (
                         <>
                             <BandsTable bands={likedBands}></BandsTable>
+                        </>
+                    )
+                }
+                {
+                    (tab == 'favourites-tab' && favouritesTab == 'favourite-releases-tab') && (
+                        <>
+                            <ReleasesTable releases={likedReleases} onWriteReview={openWriteReviewModal} myReviews={releaseReviews}></ReleasesTable>
                         </>
                     )
                 }
