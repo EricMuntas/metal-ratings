@@ -2,7 +2,7 @@ import { useForm } from "@inertiajs/react";
 import { useState } from "react";
 import { route } from "ziggy-js";
 
-export default function Filter({ genres }) {
+export default function Filter() {
 
     const { data, setData, get, processing, errors } = useForm({
         name: '',
@@ -64,20 +64,13 @@ export default function Filter({ genres }) {
                             </div>
                             <div>
                                 <label htmlFor="genre">Genre:</label>
-                                <select
+                                <input
+                                    type="text"
                                     name="genre"
                                     value={data.genre}
                                     onChange={(e) => setData('genre', e.target.value)}
-                                >
-                                    <option value="">Select genre...</option>
-                                    {
-                                        genres.map((genre) => (
-                                            <option value={genre.id} key={genre.id}>
-                                                {genre.name}
-                                            </option>
-                                        ))
-                                    }
-                                </select>
+                                    placeholder="e.g. Death Metal"
+                                />
                             </div>
                         </div>
                     )}

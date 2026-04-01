@@ -1,38 +1,21 @@
 import { useForm } from "@inertiajs/react";
 import AppLayout from "../../Layouts/AppLayout";
 import { useState } from "react";
+import { route } from "ziggy-js";
 
-export default function EditUserProfile({ user, genres }) {
+export default function EditUserProfile({ user }) {
 
     const { data, setData, put, processing, errors } = useForm({
-
-        description: '',
-        favourite_genres: [],
-        favourite_bands: [],
-
+        description: user.description ?? '',
+        favourite_genres: user.favourite_genres ?? '',
+        favourite_bands: user.favourite_bands ?? '',
+        profile_pic: user.profile_pic ?? '',
     });
 
-    const [genresArray, setGenres] = useState([]);
-
-    function addGenreContainer() {
-        setGenres([...genresArray, { favourite_genres: '' }]);
-    }
-
-    const handleGenreChange = (e) => {
-        const genreId = parseInt(e.target.value);
-
-        if (data.favourite_genres.includes(genreId)) {
-            setData('favourite_genres', data.favourite_genres.filter(id => id !== genreId));
-        } else {
-            setData('favourite_genres', [...data.favourite_genres, genreId]);
-        }
-    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('user.editProfile'), {
-            forceFormData: true,
-        });
+        put(route('user.saveEditProfile', user.id));
     };
 
     return (
@@ -49,47 +32,34 @@ export default function EditUserProfile({ user, genres }) {
                             value={data.description}
                             onChange={(e) => setData('description', e.target.value)}></textarea>
                     </div>
-                       {/* <div>
-                        <label htmlFor="description">Favourite Bands:</label>
-                        <textarea name="description" id=""
-                            value={data.description}
-                            onChange={(e) => setData('description', e.target.value)}></textarea>
-                    </div> */}
+
                     <div>
-                        <label htmlFor="">Favourite genres</label>
-                        <select name="maingenre" onChange={handleGenreChange}>
-                            <option value="0">Select a genre...</option>
-                            {
-                                genres.map((genre, index) => (
-                                    <option value={genre.id} key={genre.id}>{genre.name}</option>
-                                ))
-                            }
-
-                        </select>
-                        {errors.genres_id && <span className="error">{errors.genres_id}</span>}
+                        <label htmlFor="favourite_bands">Favourite bands</label>
+                        <textarea name="favourite_bands" id=""
+                            value={data.favourite_bands}
+                            onChange={(e) => setData('favourite_bands', e.target.value)}></textarea>
                     </div>
+
                     <div>
-                        <button type="button" onClick={addGenreContainer}>Add more genre</button>
+                        <label htmlFor="favourite_genres">Favourite genres</label>
+                        <textarea name="favourite_genres" id=""
+                            value={data.favourite_genres}
+                            onChange={(e) => setData('favourite_genres', e.target.value)}></textarea>
                     </div>
-                    {
-                        genresArray.map((newGenre, index) => (
 
-                            <div key={index} >
-                                <label htmlFor={"newGenre" + 1}>Genre {index + 2}:</label>
-                                <select name="maingenre" onChange={handleGenreChange}>
-                                    <option value="0">Select a genre...</option>
-                                    {
-                                        genres.map((genre, index) => (
-                                            <option value={genre.id} key={genre.id}>{genre.name}</option>
-                                        ))
-                                    }
+                    <div>
+                        <label htmlFor="profile_pic">Photo:</label>
+                        <input
+                            type="file"
+                            name="profile_pic"
+                            accept="image/*"
+                            onChange={e => setData('profile_pic', e.target.files[0])}
+                        />
+                        {errors.profile_pic && <span className="error">{errors.profile_pic}</span>}
+                    </div>
 
-                                </select>
-                                {errors.genres_id && <span className="error">{errors.genres_id}</span>}
-                            </div>
+                    <button type="submit">Submit</button>
 
-                        ))
-                    }
                 </form>
 
 

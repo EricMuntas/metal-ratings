@@ -20,7 +20,7 @@ return new class extends Migration
             $table->mediumText('description')->nullable();
             $table->json('favourite_genres')->nullable();
             $table->json('favourite_bands')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('profile_pic')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

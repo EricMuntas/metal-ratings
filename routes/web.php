@@ -28,7 +28,7 @@ Route::get('/test', function () {
 
 Route::get('/users/{id}', [UserProfileController::class, 'show'])->name('user.showProfile');
 Route::get('/users/{id}/edit', [UserProfileController::class, 'showEditProfile'])->name('user.showEditProfile');
-Route::put('/users/{id}/edit', [UserProfileController::class, 'editProfile'])->name('user.editProfile');
+Route::put('/users/{id}/edit', [UserProfileController::class, 'saveEditProfile'])->name('user.saveEditProfile');
 
 Route::get('/bands', [BandController::class, 'index'])->name('band.index');
 Route::get('/bands/search', [BandController::class, 'searchBand'])->name('band.searchBand');

@@ -42,22 +42,43 @@ export default function UserProfile({ user, releaseReviews, reviewedReleaseBands
         <>
             <AppLayout title={user.name + ' Profile'}>
 
-                <div className="bg-blue-300 w-full h-50 flex items-center flex-col md:flex-row">
+                <div className="bg-blue-300 w-full h-fit md:h-50 flex items-center flex-col md:flex-row p-10  gap-8">
 
-                    <div className="h-32 w-32 bg-black m-10 shrink-0" id="profilepic"></div>
-                    <div className="w-full mr-10">
-                        <h3 className="text-2xl">{user.name}</h3>
-                        <p className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos natus illo amet quidem nam voluptates iure laboriosam, similique cupiditate hic perferendis placeat dolorum sapiente ratione doloribus voluptatem, nesciunt magni expedita.</p>
-                        {
-                            auth.user.id == user.id && (
-                                <>
-                                    <div className="w-full h-full flex justify-end">
-                                        <a className="" href={route('user.showEditProfile', auth.user.id)}><button type="button">Edit profile</button></a>
-                                    </div>
-                                </>
-                            )
-                        }
+                    {/* <div className="h-32 w-32 bg-black shrink-0" id="profilepic"></div> */}
+
+                    {
+                        (user.profile_pic) ? (
+                            <>
+                                {/* todo -> add image */}
+                                <img src={`/storage/${user.profile_pic}`} alt="" className="bg-gray-200 h-32 w-32 shrink-0 select-none" draggable="false" />
+                            </>
+                        ) : (
+                            <>
+                                <div id="img" className="bg-gray-200 h-32 w-32 flex justify-center items-center shrink-0">
+                                    <span className="text-white text-8xl select-none text-center">?</span>
+                                </div>
+                            </>
+                        )
+                    }
+
+                    <div className="w-full h-full flex flex-col items-center md:items-start overflow-hidden">
+                        <div><h3 className="text-2xl">{user.name}</h3></div>
+                        <div className="overflow-y-auto max-h-24">
+                            <p className="wrap-break-word">
+                                {user.description ?? "Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde explicabo id, nemo iusto, quisquam itaque eius molestias quasi harum nostrum officiis facilis neque et consectetur? Totam vitae necessitatibus odio voluptas."}
+                            </p>
+                        </div>
                     </div>
+
+                    {
+                        auth.user.id == user.id && (
+                            <>
+                                <div className="w-40 h-full flex justify-center md:items-end">
+                                    <a className="flex justify-end" href={route('user.showEditProfile', auth.user.id)}><button type="button">Edit profile</button></a>
+                                </div>
+                            </>
+                        )
+                    }
                 </div>
                 {/* Profile Tabs */}
                 <div className="bg-black w-full h-12 flex items-center justify-between text-white">

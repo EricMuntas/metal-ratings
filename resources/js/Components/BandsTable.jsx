@@ -119,7 +119,7 @@ export default function BandsTable({ bands }) {
                     :
                     (
                         <>
-                            <p>No reviews yet</p>
+                            <p>Nothing found 😢</p>
                         </>
                     )
             }

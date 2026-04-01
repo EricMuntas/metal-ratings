@@ -127,7 +127,7 @@ class BandController extends Controller
 
         if ($request->has('genre') && $request->genre) {
             $query->whereHas('genres', function ($q) use ($request) {
-                $q->where('genres.id', $request->genre);
+                $q->where('genres.name', 'LIKE', '%' . $request->genre . '%');
             });
         }
 

@@ -60,8 +60,35 @@ class UserProfileController extends Controller
         return Inertia::render('User/EditUserProfile', [
 
             'user' => $user,
-            'genres' => Genre::all(),
 
         ]);
+    }
+    public function saveEditProfile($id, Request $request)
+    {
+        $validated = $request->validate([
+            'description'      => 'nullable|string|max:2000',
+            'favourite_bands'  => 'nullable|string|max:100',
+            'favourite_genres' => 'nullable|string|max:100',
+            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+
+        $path = null;
+
+        if ($request->hasFile('profile_pic')) {
+
+            $path = $request->file('profile_pic')->store('users', 'public');
+            // saves as -> users/s4CLZIfpNDUuAvNfUsn5YhEZiJttQpP5233kBsBs.jpg
+        }
+
+        $user = User::find(Auth::id());
+
+        $user->update([
+            'description'      => $validated['description'] ?: null,
+            'favourite_bands'  => $validated['favourite_bands'] ?: null,
+            'favourite_genres' => $validated['favourite_genres'] ?: null,
+            'profile_pic' => $path ?: null,
+        ]);
+
+        return redirect('/users/' . $user->id);
     }
 }

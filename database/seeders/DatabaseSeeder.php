@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
             'formed_year' => 1969,
             'country' => 'United Kingdom',
             'rating' => 10,
-            'main_photo' => 'https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/bb46/live/455d1890-67a1-11f0-8979-21e9e3d3b0da.jpg.webp',
+            'main_photo' => 'bands/bs.png',
         ]);
 
         $album1 = Release::create([
@@ -272,7 +272,7 @@ Just a little bit too strong",
 
 
         $album1->songs()->attach([$song1, $song2, $song3, $song4, $song6, $song7]);
-        
+
         // Associate songs with the band (Black Sabbath)
         $band->songs()->attach([$song1, $song2, $song3, $song4, $song5, $song6, $song7]);
 

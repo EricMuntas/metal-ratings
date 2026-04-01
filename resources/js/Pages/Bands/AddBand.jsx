@@ -19,7 +19,7 @@ export default function AddBand({ genres }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         post(route('band.storeBand'), {
-            forceFormData: true,  
+            forceFormData: true,
         });
     };
 
@@ -80,7 +80,7 @@ export default function AddBand({ genres }) {
                 </div>
 
                 <div>
-                    <label htmlFor="phpo">Photo:</label>
+                    <label htmlFor="main_photo">Photo:</label>
                     <input
                         type="file"
                         name="main_photo"
