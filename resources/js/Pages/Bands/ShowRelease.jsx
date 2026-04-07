@@ -4,6 +4,8 @@ import SongsTable from "../../Components/SongsTable";
 import WriteSongReviewModal from "../../Components/WriteSongReviewModal";
 import AppLayout from "../../Layouts/AppLayout";
 import { router, usePage } from "@inertiajs/react";
+import LikeButton from "../../Components/LikeButton";
+import GoBackButton from "../../Components/GoBackButton";
 
 export default function ShowRelease({ release, myReviews, isLiked, likesCount }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,38 +41,12 @@ export default function ShowRelease({ release, myReviews, isLiked, likesCount })
         setSelectedSong(null);
     };
 
-    // Optimistic like state
-    const [liked, setLiked] = useState(isLiked);
-    const [count, setCount] = useState(likesCount ?? 0);
-
-    const handleLike = () => {
-        if (!auth?.user) {
-            router.visit("/login");
-            return;
-        }
-
-        const nowLiked = !liked;
-        setLiked(nowLiked);
-        setCount((prev) => (nowLiked ? prev + 1 : prev - 1));
-
-        router.post(
-            `/bands/${release.bands[0].id}/${release.id}/like`,
-            {},
-            {
-                preserveScroll: true,
-                preserveState: true,
-                onError: () => {
-                    // Revert on error
-                    setLiked(liked);
-                    setCount(count);
-                },
-            }
-        );
-    };
-
-
     return (
         <AppLayout title={release.name}>
+
+            <GoBackButton goTo="band" params={{ id: release.bands[0].id }} />
+
+
             {release.bands.map((band) => (
                 <h1 key={'band' + band.id}>
                     {band.name}
@@ -78,15 +54,8 @@ export default function ShowRelease({ release, myReviews, isLiked, likesCount })
             ))}
 
             <a href={''} className="link">Edit release</a>
-            {/* Like button */}
-            <button
-                onClick={handleLike}
-                style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "12px" }}
-                title={liked ? "Quitar like" : "Dar like"}
-            >
-                <span style={{ fontSize: "1.5rem" }}>{liked ? "❤️" : "🤍"}</span>
-                <span>{count} {count === 1 ? "like" : "likes"}</span>
-            </button>
+
+            <LikeButton type={'release'} item={release} isLiked={isLiked} likesCount={likesCount}></LikeButton>
 
             <SongsTable
                 songs={release.songs}

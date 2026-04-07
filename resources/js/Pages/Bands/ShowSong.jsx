@@ -3,54 +3,21 @@ import AppLayout from "../../Layouts/AppLayout";
 import { route } from "ziggy-js";
 import { useState } from "react";
 import { router, usePage } from "@inertiajs/react";
+import LikeButton from "../../Components/LikeButton";
+import GoBackButton from "../../Components/GoBackButton";
 
 export default function ShowSong({ song, isLiked, likesCount }) {
 
     const { auth } = usePage().props;
 
-    // Optimistic like state
-    const [liked, setLiked] = useState(isLiked);
-    const [count, setCount] = useState(likesCount ?? 0);
-
-    const handleLike = () => {
-        if (!auth?.user) {
-            router.visit("/login");
-            return;
-        }
-
-        // Optimistic update
-        const nowLiked = !liked;
-        setLiked(nowLiked);
-        setCount((prev) => (nowLiked ? prev + 1 : prev - 1));
-
-        router.post(
-            `/songs/${song.id}/like`,
-            {},
-            {
-                preserveScroll: true,
-                preserveState: true,
-                onError: () => {
-                    // Revert on error
-                    setLiked(liked);
-                    setCount(count);
-                },
-            }
-        );
-    };
 
     return (
 
         <>
             <AppLayout title={song.title}>
-                {/* Like button */}
-                <button
-                    onClick={handleLike}
-                    style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "12px" }}
-                    title={liked ? "Quitar like" : "Dar like"}
-                >
-                    <span style={{ fontSize: "1.5rem" }}>{liked ? "❤️" : "🤍"}</span>
-                    <span>{count} {count === 1 ? "like" : "likes"}</span>
-                </button>
+                <GoBackButton goTo="release" params={{ band: song.bands[0].id, release: song.releases[0].id }} />
+
+                <LikeButton type={'song'} item={song} isLiked={isLiked} likesCount={likesCount}></LikeButton>
                 <div>
                     <h1>{song.title}</h1>
                     <p>{song.lyrics}</p>
