@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { router, usePage } from "@inertiajs/react";
+import { Heart } from "lucide-react";
 
-export default function LikeButton({ type, item, isLiked, likesCount }) {
+export default function LikeButton({ buttonType = 'button', itemType, item, isLiked, likesCount }) {
 
     console.log(item)
 
@@ -24,7 +25,7 @@ export default function LikeButton({ type, item, isLiked, likesCount }) {
 
         let route = '';
 
-        switch (type) {
+        switch (itemType) {
             case 'song':
                 route = `/songs/${item.id}/like`;
                 break;
@@ -37,6 +38,7 @@ export default function LikeButton({ type, item, isLiked, likesCount }) {
             default:
                 break;
         }
+
 
         router.post(
             route,
@@ -56,14 +58,35 @@ export default function LikeButton({ type, item, isLiked, likesCount }) {
 
     return (
         <>
-            <button
-                onClick={handleLike}
-                style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "12px" }}
-                title={liked ? "Quitar like" : "Dar like"}
-            >
-                <span style={{ fontSize: "1.5rem" }}>{liked ? "❤️" : "🤍"}</span>
-                <span>{count} {count === 1 ? "like" : "likes"}</span>
-            </button>
+            {
+                (buttonType == 'button') && (
+                    <button
+                        onClick={handleLike}
+                        style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "12px" }}
+                        title={liked ? "Quitar like" : "Dar like"}
+                    >
+                        <span style={{ fontSize: "1.5rem" }}>{liked ? "❤️" : "🤍"}</span>
+                        <span>{count} {count === 1 ? "like" : "likes"}</span>
+                    </button>
+                )
+            }
+            {
+                (buttonType == 'icon') && (
+                    <button
+                        onClick={handleLike}
+                        title={liked ? "Quitar like" : "Dar like"}
+                        style={{ display: "inline-flex", alignItems: "center", background: 'none' }}
+                    >
+                        {
+                            liked ? (
+                                <Heart fill="currentColor" className="text-red-500" />
+                            ) : (
+                                <Heart className="text-gray-400 hover:text-red-400" />
+                            )
+                        }
+                    </button>
+                )
+            }
 
         </>
     );

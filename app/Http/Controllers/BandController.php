@@ -32,7 +32,7 @@ class BandController extends Controller
     public function show($id)
     {
 
-        $band = Band::with('releases')->findOrFail($id);
+        $band = Band::with('releases.bands')->findOrFail($id);
 
         $band_genres = Band::with('genres');
 
@@ -47,6 +47,12 @@ class BandController extends Controller
             ? $band->users()->where('user_id', Auth::id())->exists()
             : false;
 
+
+        // IDs de canciones que el usuario actual ha likeado
+        $likedReleaseIds = Auth::check()
+            ? Auth::user()->likedReleases()->whereIn('release_id', $releasesIds)->pluck('release_id')->toArray()
+            : [];
+
         return Inertia::render('Bands/ShowBand', [
             'band' => $band,
             'releases' => $band->releases,
@@ -54,6 +60,7 @@ class BandController extends Controller
             'myReviews' => $myReviews,
             'isLiked' => $isLiked,
             'likesCount' => $band->users()->count(),
+            'likedReleaseIds' => $likedReleaseIds,
         ]);
     }
 

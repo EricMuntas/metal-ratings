@@ -1,7 +1,8 @@
 import { Link } from "@inertiajs/react";
 import { Star } from "lucide-react";
+import LikeButton from "./LikeButton";
 
-export default function SongsTable({ songs, onWriteReview, myReviews }) {
+export default function SongsTable({ songs, onWriteReview, myReviews, likedSongIds = [] }) {
 
     // myReviews llega como array [{song_id, ...}], lo convertimos a {song_id: review}
     const reviewsMap = Array.isArray(myReviews)
@@ -34,10 +35,16 @@ export default function SongsTable({ songs, onWriteReview, myReviews }) {
                                 <span className="col-span-1">
                                     {song.rating ?? "No rating yet"}
                                 </span>
-                                <span className="col-span-1">
+                                <span className="col-span-1 flex ">
                                     <Star
-                                        className={`cursor-pointer ${hasReview ? "bg-yellow-500" : ""}`}
+                                        className={`cursor-pointer ${hasReview ? "fill-yellow-500 text-yellow-500" : ""}`}
                                         onClick={() => onWriteReview(song)}
+                                    />
+                                    <LikeButton
+                                        buttonType="icon"
+                                        itemType="song"
+                                        item={song}
+                                        isLiked={likedSongIds.includes(song.id)}
                                     />
                                 </span>
                             </div>

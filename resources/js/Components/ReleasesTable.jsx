@@ -3,8 +3,9 @@ import { Eye, Grid, Star, Table, Table2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { route } from "ziggy-js";
 import GridItem from "./GridItem";
+import LikeButton from "./LikeButton";
 
-export default function ReleasesTable({ releases, onWriteReleaseReview, band_id, myReviews, isReview = false }) {
+export default function ReleasesTable({ releases, onWriteReleaseReview, band_id, myReviews, isReview = false, likedReleaseIds = [] }) {
 
     function getYear(release_date) {
         return release_date.split('-')[0];
@@ -106,12 +107,13 @@ export default function ReleasesTable({ releases, onWriteReleaseReview, band_id,
                                                         <span className="col-span-2"> {release.type}</span>
                                                         <span className="col-span-1"> {getYear(release.release_date)}</span>
                                                         <span className="col-span-1">{release.rating ?? 'No rating yet'}</span>
-                                                        <span className="col-span-1">
+                                                        <span className="col-span-1 flex items-center gap-1">
                                                             <Star
-                                                                className={`cursor-pointer ${myReviews[release.id] ? "bg-yellow-500" : ""
+                                                                className={`cursor-pointer ${myReviews[release.id] ? "fill-yellow-500 text-yellow-500" : ""
                                                                     }`}
                                                                 onClick={() => onWriteReleaseReview(release)}
                                                             />
+                                                            <LikeButton buttonType="icon" itemType={'release'} item={release} isLiked={likedReleaseIds.includes(release.id)}></LikeButton>
                                                         </span>
                                                     </div>
                                                 ))

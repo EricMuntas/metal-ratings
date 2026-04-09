@@ -7,7 +7,7 @@ import LikeButton from "../../Components/LikeButton";
 import { route } from "ziggy-js";
 import GoBackButton from "../../Components/GoBackButton";
 
-export default function BandProfile({ band, releases, band_genres, myReviews, isLiked, likesCount }) {
+export default function BandProfile({ band, releases, band_genres, myReviews, isLiked, likesCount, likedReleaseIds }) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedRelease, setSelectedRelease] = useState(null);
@@ -45,7 +45,7 @@ export default function BandProfile({ band, releases, band_genres, myReviews, is
             <p>Year formed: {band.formed_year}</p>
 
             {/* Like button */}
-            <LikeButton type={'band'} item={band} isLiked={isLiked} likesCount={likesCount}> </LikeButton>
+            <LikeButton itemType={'band'} item={band} isLiked={isLiked} likesCount={likesCount}> </LikeButton>
 
             {releases.map((release, index) => (
                 <h1 key={index}>
@@ -60,6 +60,7 @@ export default function BandProfile({ band, releases, band_genres, myReviews, is
                 onWriteReleaseReview={openWriteReleaseReviewModal}
                 band_id={band.id}
                 myReviews={myReviews}
+                likedReleaseIds={likedReleaseIds ?? []}
             />
 
             <WriteReleaseReviewModal

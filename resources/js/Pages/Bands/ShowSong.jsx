@@ -17,7 +17,7 @@ export default function ShowSong({ song, isLiked, likesCount }) {
             <AppLayout title={song.title}>
                 <GoBackButton goTo="release" params={{ band: song.bands[0].id, release: song.releases[0].id }} />
 
-                <LikeButton type={'song'} item={song} isLiked={isLiked} likesCount={likesCount}></LikeButton>
+                <LikeButton itemType={'song'} item={song} isLiked={isLiked} likesCount={likesCount}></LikeButton>
                 <div>
                     <h1>{song.title}</h1>
                     <p>{song.lyrics}</p>

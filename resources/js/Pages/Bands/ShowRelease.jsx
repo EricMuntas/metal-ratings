@@ -7,7 +7,7 @@ import { router, usePage } from "@inertiajs/react";
 import LikeButton from "../../Components/LikeButton";
 import GoBackButton from "../../Components/GoBackButton";
 
-export default function ShowRelease({ release, myReviews, isLiked, likesCount }) {
+export default function ShowRelease({ release, myReviews, isLiked, likesCount, likedSongIds }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedSong, setSelectedSong] = useState(null);
     const [selectedSongReview, setSelectedSongReview] = useState(null);
@@ -55,12 +55,13 @@ export default function ShowRelease({ release, myReviews, isLiked, likesCount })
 
             <a href={''} className="link">Edit release</a>
 
-            <LikeButton type={'release'} item={release} isLiked={isLiked} likesCount={likesCount}></LikeButton>
+            <LikeButton itemType={'release'} item={release} isLiked={isLiked} likesCount={likesCount}></LikeButton>
 
             <SongsTable
                 songs={release.songs}
                 onWriteReview={openWriteReviewModal}
                 myReviews={myReviews}
+                likedSongIds={likedSongIds ?? []}
             />
 
             <WriteSongReviewModal

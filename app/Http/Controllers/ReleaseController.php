@@ -38,6 +38,10 @@ class ReleaseController extends Controller
             ? $release->users()->where('user_id', Auth::id())->exists()
             : false;
 
+        // IDs de canciones que el usuario actual ha likeado
+        $likedSongIds = Auth::check()
+            ? Auth::user()->likedSongs()->whereIn('song_id', $songIds)->pluck('song_id')->toArray()
+            : [];
 
         return Inertia::render("Bands/ShowRelease", ([
             // 'band' => $band,
@@ -45,6 +49,7 @@ class ReleaseController extends Controller
             'myReviews' => $myReviews,
             'isLiked' => $isLiked,
             'likesCount' => $release->users()->count(),
+            'likedSongIds' => $likedSongIds,
         ]));
     }
 
